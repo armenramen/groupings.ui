@@ -1,0 +1,24 @@
+{
+    "items": [
+        {
+            "id": "1",
+            "name": "Interviews",
+            "itemsCount": 20
+        },
+        {
+            "id": "2",
+            "name": "Direct Reports",
+            "itemsCount": 20
+        },
+        {
+            "id": "3",
+            "name": "Progression",
+            "itemsCount": 20
+        },
+        {
+            "id": "4",
+            "name": "Summer Outing Participants",
+            "itemsCount": 20
+        }
+    ]
+}

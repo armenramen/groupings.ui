@@ -1,0 +1,59 @@
+<h2>Title here</h2>
+
+<div class="d-flex-row d-align-ctr">
+  <app-group-select
+    *ngIf="groupingList$ | async as groupingList"
+    [groupingList]="groupingList.items"
+    (groupSelected)="onGroupSelected($event)"
+  ></app-group-select>
+  <div class="group-actions-row">
+    <button mat-button class="add-group-btn">
+      Edit Group
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-button>
+      Generate report
+      <mat-icon>trending_up</mat-icon>
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      class="add-group-btn"
+      (click)="opanAddGroupModal()"
+    >
+      New Group
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+<ng-container *ngIf="dataSource$ | async as data">
+  <div class="grid-actions-row">
+    <button mat-stroked-button color="accent">
+      Upload New File
+      <mat-icon>upload</mat-icon>
+    </button>
+    <button mat-stroked-button disabled>
+      Delete
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <div class="right">
+      <mat-button-toggle-group class="view-toggle" aria-label="Details View">
+        <mat-button-toggle value="grid">
+          <mat-icon>grid_view</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="table">
+          <mat-icon>table_view</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <app-group-table [dataSource]="data"></app-group-table>
+</ng-container>
+
+<ng-container *ngIf="isLoading">
+  <mat-spinner class="spinner" color="accent"> </mat-spinner>
+</ng-container>

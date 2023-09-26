@@ -1,0 +1,24 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    &:hover {
+        cursor: pointer;
+    }
+
+    .expand-icon {
+        font-size: 30px;
+    }
+    
+    h2 {
+        margin: 5px;
+        letter-spacing: 0.6px;
+        font-size: 40px;
+    }
+
+    &-item {
+        // padding-left: 20px;
+    }
+}
+

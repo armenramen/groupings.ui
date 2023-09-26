@@ -1,0 +1,28 @@
+.group-actions-row {
+  // display: inline-flex;
+  margin-left: auto;
+  button {
+    margin-right: 10px;
+  }
+}
+
+.grid-actions-row {
+  display: flex;
+  //   flex-direction: row-reverse;
+  margin: 10px 0;
+  button {
+    margin-right: 10px;
+  }
+
+  .view-toggle::ng-deep .mat-button-toggle-label-content {
+    line-height: 35px;
+  }
+}
+
+.right {
+  margin-left: auto;
+}
+
+.spinner {
+  margin: 50px auto;
+}

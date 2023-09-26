@@ -1,0 +1,259 @@
+{
+    "groupName": "Interviews",
+    "items": [
+        {
+            "id": "1",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "8/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "5",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "7",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "8",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "9",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                }
+            ]
+        },
+        {
+            "id": "10",
+            "file": {
+                "name": "Juan Dela Cruz - Interview",
+                "extension": "xlsx"
+            },
+            "details": [
+                {
+                    "property": "Name",
+                    "value": "Juan Dela Cruz"
+                },
+                {
+                    "property": "Sector",
+                    "value": "Media and Ent"
+                },
+                {
+                    "property": "Passed",
+                    "value": true
+                },
+                {
+                    "property": "Interview Date",
+                    "value": "7/10/2023"
+                },
+                {
+                    "property": "Onboarding Date",
+                    "value": "9/10/2023"
+                }
+            ]
+        }
+    ]
+}
