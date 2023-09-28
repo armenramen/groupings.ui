@@ -1,6 +1,6 @@
-<h2 mat-dialog-title>New group</h2>
+<h2 mat-dialog-title>Edit group</h2>
 <mat-dialog-content class="mat-typography">
-  <form class="group-form" [formGroup]="groupForm">
+  <form class="group-form" [formGroup]="formGroup" *ngIf="group">
     <mat-form-field class="group-form-name">
       <mat-label>Group Name</mat-label>
       <input
@@ -38,7 +38,7 @@
               <mat-option value="date"
                 ><mat-icon>calendar_month</mat-icon> Date</mat-option
               >
-              <mat-option value="booelan"
+              <mat-option value="boolean"
                 ><mat-icon>toggle_on</mat-icon> Boolean</mat-option
               >
             </mat-select>
@@ -56,7 +56,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="groupForm.value" color="accent">
+  <button mat-raised-button [mat-dialog-close]="formGroup.value" color="accent">
     Submit
   </button>
 </mat-dialog-actions>

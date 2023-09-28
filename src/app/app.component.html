@@ -7,11 +7,16 @@
     (groupSelected)="onGroupSelected($event)"
   ></app-group-select>
   <div class="group-actions-row">
-    <button mat-button class="add-group-btn">
+    <button
+      mat-button
+      class="add-group-btn"
+      *ngIf="selectedGroupName"
+      (click)="openEditGroupModal()"
+    >
       Edit Group
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-button>
+    <button mat-button *ngIf="selectedGroupName">
       Generate report
       <mat-icon>trending_up</mat-icon>
     </button>
@@ -19,7 +24,7 @@
       mat-raised-button
       color="accent"
       class="add-group-btn"
-      (click)="opanAddGroupModal()"
+      (click)="openAddGroupModal()"
     >
       New Group
       <mat-icon>add</mat-icon>
@@ -34,7 +39,7 @@
       Upload New File
       <mat-icon>upload</mat-icon>
     </button>
-    <button mat-stroked-button disabled>
+    <button mat-stroked-button [disabled]="selectedItems.length < 1">
       Delete
       <mat-icon>delete</mat-icon>
     </button>
@@ -51,7 +56,10 @@
     </div>
   </div>
 
-  <app-group-table [dataSource]="data"></app-group-table>
+  <app-group-table
+    [dataSource]="data"
+    (selectionChanged)="onSelectRow($event)"
+  ></app-group-table>
 </ng-container>
 
 <ng-container *ngIf="isLoading">

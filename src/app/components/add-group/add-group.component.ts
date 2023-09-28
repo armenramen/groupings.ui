@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-group',
@@ -6,10 +7,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-group.component.scss']
 })
 export class AddGroupComponent implements OnInit {
+  groupForm!: FormGroup;
 
-  constructor() { }
+  get detailsForms() {
+    return this.groupForm.get('details') as FormArray
+  }
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.groupForm = this.formBuilder.group({
+      groupName: ['', [Validators.required]],
+      details: this.formBuilder.array([
+        this.formBuilder.group({
+          propertyName: ['', [Validators.required]],
+          type: ['text', Validators.required]
+        })
+      ])
+    })
+
+  }
+
+  addProperty() {
+    this.detailsForms.push(this.formBuilder.group({
+      propertyName: ['', [Validators.required]],
+      type: ['text', Validators.required]
+    }))
   }
 
 }

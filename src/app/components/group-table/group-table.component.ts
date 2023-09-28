@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-group-table',
@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GroupTableComponent implements OnInit {
   @Input() dataSource: any[] = [];
+  @Output() selectionChanged = new EventEmitter();
 
   selection = new SelectionModel<any>(true, []);
 
@@ -46,14 +47,22 @@ export class GroupTableComponent implements OnInit {
     return numSelected === numRows;
   }
 
+  toggleRow(row: any) {
+    this.selection.toggle(row);
+    this.selectionChanged.emit(this.selection.selected);
+  }
+
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
+      this.selectionChanged.emit(this.selection.selected);
       return;
     }
 
     this.selection.select(...this.dataSource);
+    this.selectionChanged.emit(this.selection.selected);
+
   }
 
   /** The label for the checkbox on the passed row */

@@ -1,7 +1,7 @@
 export interface Grouping {
   id: string,
   name: string,
-  itemsCount: number
+  properties: Array<{ propertyName: string, type: string }>
 }
 
 export interface GroupItemResponse {

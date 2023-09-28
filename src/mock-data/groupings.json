@@ -3,22 +3,54 @@
         {
             "id": "1",
             "name": "Interviews",
-            "itemsCount": 20
+            "properties": [
+                {
+                    "property": "Name",
+                    "type": "text"
+                },
+                {
+                    "property": "Sector",
+                    "type": "text"
+                },
+                {
+                    "property": "Passed",
+                    "type": "boolean"
+                },
+                {
+                    "property": "Interview Date",
+                    "type": "date"
+                }
+            ]
         },
         {
             "id": "2",
             "name": "Direct Reports",
-            "itemsCount": 20
+            "properties": [
+                {
+                    "property": "Name",
+                    "type": "text"
+                }
+            ]
         },
         {
             "id": "3",
             "name": "Progression",
-            "itemsCount": 20
+            "properties": [
+                {
+                    "property": "Name",
+                    "type": "text"
+                }
+            ]
         },
         {
             "id": "4",
             "name": "Summer Outing Participants",
-            "itemsCount": 20
+            "properties": [
+                {
+                    "property": "Name",
+                    "type": "text"
+                }
+            ]
         }
     ]
 }

@@ -15,12 +15,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { AddGroupItemComponent } from './components/add-group-item/add-group-item.component';
 import { GroupTableComponent } from './components/group-table/group-table.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { EditGroupComponent } from './components/edit-group/edit-group.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +32,15 @@ import { GroupTableComponent } from './components/group-table/group-table.compon
     GroupSelectComponent,
     AddGroupComponent,
     AddGroupItemComponent,
-    GroupTableComponent
+    GroupTableComponent,
+    EditGroupComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
@@ -46,6 +52,9 @@ import { GroupTableComponent } from './components/group-table/group-table.compon
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [
     GroupingsService
