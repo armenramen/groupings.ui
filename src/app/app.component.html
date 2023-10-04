@@ -1,4 +1,4 @@
-<h2>Title here</h2>
+<h2>Task Grouping</h2>
 
 <div class="d-flex-row d-align-ctr">
   <app-group-select
@@ -45,11 +45,16 @@
     </button>
 
     <div class="right">
-      <mat-button-toggle-group class="view-toggle" aria-label="Details View">
-        <mat-button-toggle value="grid">
+      <mat-button-toggle-group
+        #group="matButtonToggleGroup"
+        class="view-toggle"
+        aria-label="Details View"
+        [value]="'icon'"
+      >
+        <mat-button-toggle value="icon" matTooltip="Icon View">
           <mat-icon>grid_view</mat-icon>
         </mat-button-toggle>
-        <mat-button-toggle value="table">
+        <mat-button-toggle value="table" matTooltip="Table View">
           <mat-icon>table_view</mat-icon>
         </mat-button-toggle>
       </mat-button-toggle-group>
@@ -57,9 +62,16 @@
   </div>
 
   <app-group-table
+    *ngIf="group.value === 'table'"
     [dataSource]="data"
     (selectionChanged)="onSelectRow($event)"
   ></app-group-table>
+
+  <app-group-icon-view
+    *ngIf="group.value === 'icon'"
+    [dataSource]="data"
+    [selectedGroup]="selectedGroup"
+  ></app-group-icon-view>
 </ng-container>
 
 <ng-container *ngIf="isLoading">

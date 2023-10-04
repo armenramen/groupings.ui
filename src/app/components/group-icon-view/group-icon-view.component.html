@@ -1,0 +1,41 @@
+<mat-drawer-container class="cards-container">
+  <mat-drawer-content>
+    <mat-grid-list cols="4" rowHeight="250px" gutterSize="5px">
+      <mat-grid-tile *ngFor="let item of dataSource">
+        <mat-card
+          [class.selected]="item.id === selectedItem?.id"
+          (click)="onCardSelect(item, drawer)"
+        >
+          <mat-card-content matRipple>
+            <img
+              mat-card-image
+              src="../assets/img/excel.svg"
+              [alt]="item.fileName"
+            />
+            <p>{{ item.fileName }}</p>
+          </mat-card-content>
+          <!-- <mat-card-actions class="right d-flex-row d-align-ctr">
+            <button mat-icon-button color="accent" aria-label="Edit">
+              <mat-icon>edit_square</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" aria-label="Download">
+              <mat-icon>download</mat-icon>
+            </button>
+          </mat-card-actions> -->
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-drawer-content>
+  <mat-drawer #drawer mode="over" position="end">
+    <div class="card-details">
+      <h3>Details</h3>
+      <p>{{ selectedItem?.fileName }}</p>
+      <ng-container *ngFor="let prop of selectedGroup?.properties">
+        <p *ngIf="selectedItem">
+          {{ prop?.property }}:
+          {{ selectedItem[prop.property] }}
+        </p>
+      </ng-container>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>

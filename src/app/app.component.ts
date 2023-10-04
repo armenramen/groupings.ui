@@ -5,6 +5,7 @@ import { GroupItemResponse, GroupItem, Detail, Grouping } from './utilities/mode
 import { MatDialog } from '@angular/material/dialog';
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   selectedGroup: Grouping | null = null;
   isLoading = false;
   selectedItems: any[] = [];
+  selectedItem: any = null;
 
   constructor(private service: GroupingsService,
     private dialog: MatDialog) {
@@ -91,6 +93,7 @@ export class AppComponent implements OnInit {
     console.log(selection);
     this.selectedItems = selection
   }
+
 
 
 }

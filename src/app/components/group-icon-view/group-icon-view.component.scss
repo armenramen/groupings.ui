@@ -1,0 +1,19 @@
+.cards-container {
+  border: 1px solid #0000001f;
+
+  mat-card {
+    width: 200px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  img {
+    width: 150px;
+  }
+
+  mat-drawer {
+    padding: 20px;
+  }
+}

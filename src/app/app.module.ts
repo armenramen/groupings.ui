@@ -25,6 +25,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import { Component } from '@angular/core';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { GroupIconViewComponent } from './components/group-icon-view/group-icon-view.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,8 @@ import { EditGroupComponent } from './components/edit-group/edit-group.component
     AddGroupComponent,
     AddGroupItemComponent,
     GroupTableComponent,
-    EditGroupComponent
+    EditGroupComponent,
+    GroupIconViewComponent
   ],
   imports: [
     FormsModule,
@@ -54,7 +60,10 @@ import { EditGroupComponent } from './components/edit-group/edit-group.component
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     GroupingsService
