@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
       return {
         id,
         fileName: `${file.name}.${file.extension}`,
+        fileType: file.extension,
         ...obj
       }
     })

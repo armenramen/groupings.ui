@@ -23,7 +23,7 @@ export class GroupTableComponent implements OnInit {
   get columns(): any[] {
     const item = this.dataSource.length ? this.dataSource[0] : {}
     return Object.keys(item)
-      .filter(el => el !== 'id')
+      .filter(el => el !== 'id' && el !== 'fileType')
       .map(prop => {
         return {
           columnDef: prop,

@@ -7,28 +7,21 @@
           (click)="onCardSelect(item, drawer)"
         >
           <mat-card-content matRipple>
-            <img
-              mat-card-image
-              src="../assets/img/excel.svg"
-              [alt]="item.fileName"
-            />
+            <img mat-card-image [src]="getImage(item)" [alt]="item.fileName" />
             <p>{{ item.fileName }}</p>
           </mat-card-content>
-          <!-- <mat-card-actions class="right d-flex-row d-align-ctr">
-            <button mat-icon-button color="accent" aria-label="Edit">
-              <mat-icon>edit_square</mat-icon>
-            </button>
-            <button mat-icon-button color="accent" aria-label="Download">
-              <mat-icon>download</mat-icon>
-            </button>
-          </mat-card-actions> -->
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-drawer-content>
   <mat-drawer #drawer mode="over" position="end">
-    <div class="card-details">
+    <div class="drawer-header">
       <h3>Details</h3>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="drawer-content">
       <p>{{ selectedItem?.fileName }}</p>
       <ng-container *ngFor="let prop of selectedGroup?.properties">
         <p *ngIf="selectedItem">
@@ -36,6 +29,17 @@
           {{ selectedItem[prop.property] }}
         </p>
       </ng-container>
+      <div class="actions">
+        <button mat-stroked-button color="accent">
+          Download <mat-icon>download</mat-icon>
+        </button>
+        <button mat-stroked-button color="accent">
+          Edit <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-stroked-button color="warn">
+          Delete <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-drawer>
 </mat-drawer-container>

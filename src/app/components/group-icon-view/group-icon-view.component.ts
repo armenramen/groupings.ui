@@ -12,6 +12,7 @@ export class GroupIconViewComponent implements OnInit {
   @Input() selectedGroup!: Grouping | null;
   selectedItem: any = null;
 
+  readonly XLSX_ICON_PATH = '../assets/img/excel.svg';
 
   constructor() { }
 
@@ -22,6 +23,14 @@ export class GroupIconViewComponent implements OnInit {
     this.selectedItem = item;
     console.log(this.selectedItem)
     drawer.toggle();
+  }
+
+  getImage(item: any) {
+    if (item.fileType === 'xlsx') {
+      return this.XLSX_ICON_PATH;
+    }
+
+    return '';
   }
 
 }
