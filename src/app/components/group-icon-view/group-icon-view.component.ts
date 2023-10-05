@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Grouping } from 'src/app/utilities/models/response-models';
+import { GroupFile, Grouping } from 'src/app/utilities/models/response-models';
 
 @Component({
   selector: 'app-group-icon-view',
@@ -25,12 +25,17 @@ export class GroupIconViewComponent implements OnInit {
     drawer.toggle();
   }
 
-  getImage(item: any) {
-    if (item.fileType === 'xlsx') {
+  getImage(file: GroupFile) {
+    if (file.extension === 'xlsx') {
       return this.XLSX_ICON_PATH;
     }
 
     return '';
+  }
+
+  getFileName(file: GroupFile) {
+
+    return `${file.name} - ${file.extension}`
   }
 
 }

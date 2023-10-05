@@ -15,6 +15,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent implements OnInit {
   groupingList$!: Observable<any>;
   dataSource$!: Observable<any>;
+  gridData$!: Observable<any>;
   selectedGroup$ = new Subject();
   selectedGroupName = '';
   selectedGroup: Grouping | null = null;
@@ -32,9 +33,15 @@ export class AppComponent implements OnInit {
     this.dataSource$ = this.selectedGroup$.pipe(
       tap(() => this.isLoading = true),
       switchMap(group => this.service.getGroupItems(group)),
-      map(this.mapResponseToGridItems),
+      tap(res => {
+        console.log(res)
+      }),
       tap(() => this.isLoading = false),
       share()
+    )
+
+    this.gridData$ = this.dataSource$.pipe(
+      map(this.mapResponseToGridItems)
     )
   }
 

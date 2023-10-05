@@ -33,45 +33,46 @@
 </div>
 
 <mat-divider></mat-divider>
-<ng-container *ngIf="dataSource$ | async as data">
-  <div class="grid-actions-row">
-    <button mat-stroked-button color="accent">
-      Upload New File
-      <mat-icon>upload</mat-icon>
-    </button>
-    <button mat-stroked-button [disabled]="selectedItems.length < 1">
-      Delete
-      <mat-icon>delete</mat-icon>
-    </button>
+<div class="grid-actions-row">
+  <button mat-stroked-button color="accent">
+    Upload New File
+    <mat-icon>upload</mat-icon>
+  </button>
+  <button mat-stroked-button [disabled]="selectedItems.length < 1">
+    Delete
+    <mat-icon>delete</mat-icon>
+  </button>
 
-    <div class="right">
-      <mat-button-toggle-group
-        #group="matButtonToggleGroup"
-        class="view-toggle"
-        aria-label="Details View"
-        [value]="'icon'"
-      >
-        <mat-button-toggle value="icon" matTooltip="Icon View">
-          <mat-icon>grid_view</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="table" matTooltip="Table View">
-          <mat-icon>table_view</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
+  <div class="right">
+    <mat-button-toggle-group
+      #group="matButtonToggleGroup"
+      class="view-toggle"
+      aria-label="Details View"
+      [value]="'icon'"
+    >
+      <mat-button-toggle value="icon" matTooltip="Icon View">
+        <mat-icon>grid_view</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="table" matTooltip="Table View">
+        <mat-icon>table_view</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
   </div>
+</div>
 
+<ng-container *ngIf="dataSource$ | async as data">
+  <app-group-icon-view
+    *ngIf="group.value === 'icon'"
+    [dataSource]="data.items"
+    [selectedGroup]="selectedGroup"
+  ></app-group-icon-view>
+</ng-container>
+<ng-container *ngIf="gridData$ | async as data">
   <app-group-table
     *ngIf="group.value === 'table'"
     [dataSource]="data"
     (selectionChanged)="onSelectRow($event)"
   ></app-group-table>
-
-  <app-group-icon-view
-    *ngIf="group.value === 'icon'"
-    [dataSource]="data"
-    [selectedGroup]="selectedGroup"
-  ></app-group-icon-view>
 </ng-container>
 
 <ng-container *ngIf="isLoading">

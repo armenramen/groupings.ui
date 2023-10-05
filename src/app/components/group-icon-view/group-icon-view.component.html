@@ -7,8 +7,12 @@
           (click)="onCardSelect(item, drawer)"
         >
           <mat-card-content matRipple>
-            <img mat-card-image [src]="getImage(item)" [alt]="item.fileName" />
-            <p>{{ item.fileName }}</p>
+            <img
+              mat-card-image
+              [src]="getImage(item.file)"
+              [alt]="getFileName(item.file)"
+            />
+            <p>{{ getFileName(item.file) }}</p>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>
@@ -21,12 +25,12 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <div class="drawer-content">
-      <p>{{ selectedItem?.fileName }}</p>
-      <ng-container *ngFor="let prop of selectedGroup?.properties">
+    <div class="drawer-content" *ngIf="selectedItem">
+      <p>{{ getFileName(selectedItem.file) }}</p>
+      <ng-container *ngFor="let prop of selectedItem?.details">
         <p *ngIf="selectedItem">
           {{ prop?.property }}:
-          {{ selectedItem[prop.property] }}
+          {{ prop?.value }}
         </p>
       </ng-container>
       <div class="actions">
