@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AddGroupItemComponent } from './add-group-item.component';
+import { AddFileComponent } from './add-file.component';
 
-describe('AddGroupItemComponent', () => {
-  let component: AddGroupItemComponent;
-  let fixture: ComponentFixture<AddGroupItemComponent>;
+describe('AddFileComponent', () => {
+  let component: AddFileComponent;
+  let fixture: ComponentFixture<AddFileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddGroupItemComponent ]
+      declarations: [ AddFileComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddGroupItemComponent);
+    fixture = TestBed.createComponent(AddFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
