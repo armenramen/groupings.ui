@@ -19,7 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddGroupComponent } from './components/add-group/add-group.component';
-import { AddGroupItemComponent } from './components/add-group-item/add-group-item.component';
 import { GroupTableComponent } from './components/group-table/group-table.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,16 +29,18 @@ import { MatCardModule } from '@angular/material/card';
 import { Component } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GroupIconViewComponent } from './components/group-icon-view/group-icon-view.component';
+import { AddFileComponent } from './components/add-file/add-file.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupSelectComponent,
     AddGroupComponent,
-    AddGroupItemComponent,
     GroupTableComponent,
     EditGroupComponent,
-    GroupIconViewComponent
+    GroupIconViewComponent,
+    AddFileComponent
   ],
   imports: [
     FormsModule,
@@ -63,7 +64,8 @@ import { GroupIconViewComponent } from './components/group-icon-view/group-icon-
     MatSelectModule,
     MatTooltipModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MaterialFileInputModule
   ],
   providers: [
     GroupingsService
