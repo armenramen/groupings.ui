@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, finalize, map, of, share, startWith, switchMap, take, tap } from 'rxjs';
 import { GroupingsService } from './services/groupings.service';
-import { GroupItemResponse, GroupItem, Detail, Grouping } from './utilities/models/response-models';
+import { ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
 import { MatDrawer } from '@angular/material/sidenav';
+import { AddFileComponent } from './components/add-file/add-file.component';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +18,7 @@ export class AppComponent implements OnInit {
   dataSource$!: Observable<any>;
   gridData$!: Observable<any>;
   selectedGroup$ = new Subject();
-  selectedGroupName = '';
-  selectedGroup: Grouping | null = null;
+  selectedGroup: TaskGrouping | null = null;
   isLoading = false;
   selectedItems: any[] = [];
   selectedItem: any = null;
@@ -33,33 +33,31 @@ export class AppComponent implements OnInit {
     this.dataSource$ = this.selectedGroup$.pipe(
       tap(() => this.isLoading = true),
       switchMap(group => this.service.getGroupItems(group)),
-      tap(res => {
-        console.log(res)
-      }),
       tap(() => this.isLoading = false),
       share()
     )
 
     this.gridData$ = this.dataSource$.pipe(
-      map(this.mapResponseToGridItems)
+      map(this.mapResponseToGridItems),
+      tap(res => console.log(res))
     )
   }
 
-  mapResponseToGridItems(res: GroupItemResponse) {
-    return res.items.map(({ id, file, details }) => {
+  mapResponseToGridItems(res: TaskGroupFiles) {
+    return res.files.map(({ id, properties, detail }) => {
       // Transform details array into an object
       const obj: any = {};
-      details.forEach(d => {
-        if (typeof d.value === 'boolean') {
-          obj[d.property] = d.value ? 'Yes' : 'No';
+      properties.forEach(d => {
+        if (d.type === ProperyValueType.Boolean) {
+          obj[d.name] = d.value ? 'Yes' : 'No';
           return;
         }
-        obj[d.property] = d.value
+        obj[d.name] = d.value
       })
       return {
         id,
-        fileName: `${file.name}.${file.extension}`,
-        fileType: file.extension,
+        fileName: `${detail?.name}.${detail?.extension}`,
+        fileType: detail?.extension,
         ...obj
       }
     })
@@ -68,12 +66,23 @@ export class AppComponent implements OnInit {
 
   onGroupSelected(group: any) {
     this.selectedGroup = group;
-    this.selectedGroupName = group.name;
     this.selectedGroup$.next(group);
   }
 
   openAddGroupModal() {
     const dialogRef = this.dialog.open(AddGroupComponent, {
+      disableClose: true
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result:`, result);
+
+    });
+  }
+
+  openUploadFileModal() {
+    const dialogRef = this.dialog.open(AddFileComponent, {
       disableClose: true
 
     });
@@ -98,7 +107,6 @@ export class AppComponent implements OnInit {
   }
 
   onSelectRow(selection: any) {
-    console.log(selection);
     this.selectedItems = selection
   }
 

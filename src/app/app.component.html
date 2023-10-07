@@ -10,13 +10,13 @@
     <button
       mat-button
       class="add-group-btn"
-      *ngIf="selectedGroupName"
+      *ngIf="selectedGroup"
       (click)="openEditGroupModal()"
     >
       Edit Group
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-button *ngIf="selectedGroupName">
+    <button mat-button *ngIf="selectedGroup">
       Generate report
       <mat-icon>trending_up</mat-icon>
     </button>
@@ -34,18 +34,22 @@
 
 <mat-divider></mat-divider>
 <div class="grid-actions-row">
-  <button mat-stroked-button color="accent">
+  <button mat-stroked-button color="accent" (click)="openUploadFileModal()">
     Upload New File
     <mat-icon>upload</mat-icon>
   </button>
-  <button mat-stroked-button [disabled]="selectedItems.length < 1">
+  <button
+    mat-stroked-button
+    [disabled]="selectedItems.length < 1"
+    *ngIf="viewGroup.value === 'table'"
+  >
     Delete
     <mat-icon>delete</mat-icon>
   </button>
 
   <div class="right">
     <mat-button-toggle-group
-      #group="matButtonToggleGroup"
+      #viewGroup="matButtonToggleGroup"
       class="view-toggle"
       aria-label="Details View"
       [value]="'icon'"
@@ -62,15 +66,16 @@
 
 <ng-container *ngIf="dataSource$ | async as data">
   <app-group-icon-view
-    *ngIf="group.value === 'icon'"
-    [dataSource]="data.items"
+    *ngIf="viewGroup.value === 'icon' && !isLoading"
+    [dataSource]="data.files"
     [selectedGroup]="selectedGroup"
   ></app-group-icon-view>
 </ng-container>
 <ng-container *ngIf="gridData$ | async as data">
   <app-group-table
-    *ngIf="group.value === 'table'"
+    *ngIf="viewGroup.value === 'table' && !isLoading"
     [dataSource]="data"
+    [selectedGroup]="selectedGroup"
     (selectionChanged)="onSelectRow($event)"
   ></app-group-table>
 </ng-container>
