@@ -1,5 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TaskGrouping } from 'src/app/utilities/models/response-models';
 
 @Component({
   selector: 'app-group-table',
@@ -8,6 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class GroupTableComponent implements OnInit {
   @Input() dataSource: any[] = [];
+  @Input() selectedGroup!: TaskGrouping | null;
   @Output() selectionChanged = new EventEmitter();
 
   selection = new SelectionModel<any>(true, []);
@@ -21,16 +23,23 @@ export class GroupTableComponent implements OnInit {
   }
 
   get columns(): any[] {
-    const item = this.dataSource?.length ? this.dataSource[0] : {}
-    return Object.keys(item)
-      .filter(el => el !== 'id' && el !== 'fileType')
-      .map(prop => {
-        return {
-          columnDef: prop,
-          header: prop === 'fileName' ? 'File Name' : prop,
-          cell: (item: any) => item[prop]
-        }
+    const cols = [
+      {
+        columnDef: 'fileName',
+        header: 'File Name',
+        cell: (item: any) => item['fileName']
+      }
+    ];
+
+    this.selectedGroup?.properties.forEach(prop => {
+      cols.push({
+        columnDef: prop.name,
+        header: prop.name,
+        cell: (item: any) => item[prop.name]
       })
+    })
+
+    return cols;
   }
 
 

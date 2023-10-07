@@ -1,7 +1,7 @@
 <mat-drawer-container class="cards-container">
   <mat-drawer-content>
-    <mat-grid-list cols="4" rowHeight="250px" gutterSize="5px">
-      <mat-grid-tile *ngFor="let item of dataSource">
+    <div class="icon-grid">
+      <div class="icon-grid-item" *ngFor="let item of dataSource">
         <mat-card
           [class.selected]="item.id === selectedItem?.id"
           (click)="onCardSelect(item, drawer)"
@@ -9,14 +9,14 @@
           <mat-card-content matRipple>
             <img
               mat-card-image
-              [src]="getImage(item.file)"
-              [alt]="getFileName(item.file)"
+              [src]="getImage(item.detail)"
+              [alt]="getFileName(item.detail)"
             />
-            <p>{{ getFileName(item.file) }}</p>
+            <p>{{ getFileName(item.detail) }}</p>
           </mat-card-content>
         </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
+    </div>
   </mat-drawer-content>
   <mat-drawer #drawer mode="over" position="end">
     <div class="drawer-header">
@@ -26,18 +26,31 @@
       </button>
     </div>
     <div class="drawer-content" *ngIf="selectedItem">
-      <p>{{ getFileName(selectedItem.file) }}</p>
-      <ng-container *ngFor="let prop of selectedItem?.details">
+      <p>
+        <strong>{{ getFileName(selectedItem.detail) }}</strong>
+      </p>
+      <ng-container *ngFor="let prop of selectedItem?.properties">
         <p *ngIf="selectedItem">
-          {{ prop?.property }}:
-          {{ prop?.value }}
+          {{ prop?.name }}:
+          <span *ngIf="prop?.type !== 'boolean'; else check">{{
+            prop?.value
+          }}</span>
+          <ng-template #check>
+            <!-- <mat-checkbox [checked]="prop.value" disabled></mat-checkbox> -->
+            <span
+              class="state-badge"
+              [ngClass]="prop.value ? 'state-badge-yes' : 'state-badge-no '"
+            >
+              {{ prop.value ? 'Yes' : 'No' }}
+            </span>
+          </ng-template>
         </p>
       </ng-container>
       <div class="actions">
         <button mat-stroked-button color="accent">
           Download <mat-icon>download</mat-icon>
         </button>
-        <button mat-stroked-button color="accent">
+        <button mat-stroked-button color="accent" (click)="onEditClick()">
           Edit <mat-icon>edit</mat-icon>
         </button>
         <button mat-stroked-button color="warn">

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
-import { GroupFile, Grouping } from 'src/app/utilities/models/response-models';
+import { FileProperty, GroupFileDetail, TaskGrouping } from 'src/app/utilities/models/response-models';
 
 @Component({
   selector: 'app-group-icon-view',
@@ -9,23 +10,23 @@ import { GroupFile, Grouping } from 'src/app/utilities/models/response-models';
 })
 export class GroupIconViewComponent implements OnInit {
   @Input() dataSource: any[] = [];
-  @Input() selectedGroup!: Grouping | null;
+  @Input() selectedGroup!: TaskGrouping | null;
   selectedItem: any = null;
+  editFormArray!: FormArray
 
   readonly XLSX_ICON_PATH = '../assets/img/excel.svg';
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
   }
 
   onCardSelect(item: any, drawer: MatDrawer) {
     this.selectedItem = item;
-    console.log(this.selectedItem)
     drawer.toggle();
   }
 
-  getImage(file: GroupFile) {
+  getImage(file: GroupFileDetail) {
     if (file.extension === 'xlsx') {
       return this.XLSX_ICON_PATH;
     }
@@ -33,9 +34,18 @@ export class GroupIconViewComponent implements OnInit {
     return '';
   }
 
-  getFileName(file: GroupFile) {
+  getFileName(file: GroupFileDetail) {
+    return `${file.name}.${file.extension}`;
+  }
 
-    return `${file.name} - ${file.extension}`
+  onEditClick() {
+    console.log(this.selectedItem);
+    this.editFormArray = this.fb.array([]);
+    this.selectedItem.files.forEach((detail: FileProperty) => {
+      this.editFormArray.push(new FormControl(detail))
+    })
+
+    console.log(this.editFormArray)
   }
 
 }

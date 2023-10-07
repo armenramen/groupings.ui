@@ -1,12 +1,26 @@
 .cards-container {
   border: 1px solid #0000001f;
 
+  mat-drawer-content {
+    min-height: 60vh;
+  }
+
+  .icon-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &-item {
+      margin: 5px 5px 15px 5px;
+    }
+  }
+
   mat-card {
+    width: 200px;
+
     img {
       width: 150px;
     }
-
-    width: 200px;
 
     &:hover {
       cursor: pointer;
@@ -25,6 +39,22 @@
     .drawer-content {
       p {
         margin: 30px 0;
+      }
+
+      .state-badge {
+        padding: 7px;
+        color: white;
+        border-radius: 7px;
+        font-size: 13px;
+        text-transform: uppercase;
+
+        &-yes {
+          background-color: green;
+        }
+
+        &-no {
+          background-color: #f44336;
+        }
       }
     }
 

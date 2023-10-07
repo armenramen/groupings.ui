@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GroupItem, Grouping } from 'src/app/utilities/models/response-models';
+import { GroupFile, ProperyValueType, TaskGrouping } from 'src/app/utilities/models/response-models';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { GroupItem, Grouping } from 'src/app/utilities/models/response-models';
   styleUrls: ['./edit-group.component.scss']
 })
 export class EditGroupComponent implements OnInit, OnChanges {
-  @Input() group: Grouping | null = null;
+  @Input() group: TaskGrouping | null = null;
 
   formGroup!: FormGroup
 
@@ -18,7 +18,7 @@ export class EditGroupComponent implements OnInit, OnChanges {
     return this.formGroup.get('details') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: { group: Grouping }) { }
+  constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: { group: TaskGrouping }) { }
 
   ngOnInit() {
     this.group = this.data.group;
@@ -40,8 +40,8 @@ export class EditGroupComponent implements OnInit, OnChanges {
 
   addProperty(val?: any) {
     this.detailsForms.push(this.fb.group({
-      propertyName: [val?.property || '', [Validators.required]],
-      type: [val?.type || 'text', Validators.required]
+      propertyName: [val?.name || '', [Validators.required]],
+      type: [val?.type || ProperyValueType.String, Validators.required]
     }))
   }
 
