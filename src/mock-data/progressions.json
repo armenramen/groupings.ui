@@ -1,0 +1,129 @@
+{
+    "id": "c8be5040-fe55-4b31-811f-505714a8f4b8",
+    "groupName": "Progressions",
+    "files": [
+        {
+            "id": "b532652b-6487-4f02-98d0-5301490e37ad",
+            "detail": {
+                "name": "ToniProgress",
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
+            },
+            "properties": [
+                {
+                    "id": "2baacf51-24a0-46cf-912d-10e924cd2062",
+                    "name": "Status",
+                    "value": "Passed",
+                    "type": "String"
+                },
+                {
+                    "id": "6919c3db-8db3-4bed-acac-7f9bef354b80",
+                    "name": "IsAvailable",
+                    "value": false,
+                    "type": "boolean"
+                },
+                {
+                    "id": "b5c4a495-7c06-4b41-ab24-b2ebbff6b47b",
+                    "name": "Sector",
+                    "value": "Japan CSU",
+                    "type": "String"
+                },
+                {
+                    "id": "b1d0362b-7026-4575-8c34-eeb983bc7a15",
+                    "name": "IsExternal",
+                    "value": true,
+                    "type": "boolean"
+                },
+                {
+                    "id": "70fdfef2-489a-4a8c-9e34-fc51fc369422",
+                    "name": "Name",
+                    "value": "Toni Foster",
+                    "type": "String"
+                }
+            ]
+        },
+        {
+            "id": "ab9785d9-adc5-4bde-9e77-7f9b0c3a5bd7",
+            "detail": {
+                "name": "AnnaProgress",
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
+            },
+            "properties": [
+                {
+                    "id": "2baacf51-24a0-46cf-912d-10e924cd2062",
+                    "name": "Status",
+                    "value": "Pending",
+                    "type": "String"
+                },
+                {
+                    "id": "6919c3db-8db3-4bed-acac-7f9bef354b80",
+                    "name": "IsAvailable",
+                    "value": true,
+                    "type": "boolean"
+                },
+                {
+                    "id": "b5c4a495-7c06-4b41-ab24-b2ebbff6b47b",
+                    "name": "Sector",
+                    "value": null,
+                    "type": "String"
+                },
+                {
+                    "id": "b1d0362b-7026-4575-8c34-eeb983bc7a15",
+                    "name": "IsExternal",
+                    "value": false,
+                    "type": "boolean"
+                },
+                {
+                    "id": "70fdfef2-489a-4a8c-9e34-fc51fc369422",
+                    "name": "Name",
+                    "value": "Juan Dela Cruz",
+                    "type": "String"
+                }
+            ]
+        },
+        {
+            "id": "b0d4f0bf-5fce-407e-b06e-83503b850e2b",
+            "detail": {
+                "name": "QuelsProgress",
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
+            },
+            "properties": [
+                {
+                    "id": "2baacf51-24a0-46cf-912d-10e924cd2062",
+                    "name": "Status",
+                    "value": "Pending",
+                    "type": "String"
+                },
+                {
+                    "id": "6919c3db-8db3-4bed-acac-7f9bef354b80",
+                    "name": "IsAvailable",
+                    "value": false,
+                    "type": "boolean"
+                },
+                {
+                    "id": "b5c4a495-7c06-4b41-ab24-b2ebbff6b47b",
+                    "name": "Sector",
+                    "value": "Media and Entertainment",
+                    "type": "String"
+                },
+                {
+                    "id": "b1d0362b-7026-4575-8c34-eeb983bc7a15",
+                    "name": "IsExternal",
+                    "value": false,
+                    "type": "boolean"
+                },
+                {
+                    "id": "70fdfef2-489a-4a8c-9e34-fc51fc369422",
+                    "name": "Name",
+                    "value": "John Smith",
+                    "type": "String"
+                }
+            ]
+        }
+    ]
+}

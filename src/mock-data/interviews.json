@@ -1,257 +1,314 @@
 {
+    "id": "1",
     "groupName": "Interviews",
-    "items": [
+    "files": [
         {
             "id": "1",
-            "file": {
+            "detail": {
                 "name": "Juan Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Juan Dela Cruz"
+                    "name": "Name",
+                    "value": "Juan Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "2",
-            "file": {
+            "detail": {
                 "name": "John Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "John Dela Cruz"
+                    "name": "Name",
+                    "value": "John Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "8/10/2023"
+                    "name": "Interview Date",
+                    "value": "8/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "3",
-            "file": {
+            "detail": {
                 "name": "Alex Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Alex Dela Cruz"
+                    "name": "Name",
+                    "value": "Alex Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "4",
-            "file": {
+            "detail": {
                 "name": "Bryan Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Bryan Dela Cruz"
+                    "name": "Name",
+                    "value": "Bryan Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "5",
-            "file": {
+            "detail": {
                 "name": "Carlo Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Carlo Dela Cruz"
+                    "name": "Name",
+                    "value": "Carlo Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "6",
-            "file": {
+            "detail": {
                 "name": "Dan Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Dan Dela Cruz"
+                    "name": "Name",
+                    "value": "Dan Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "7",
-            "file": {
+            "detail": {
                 "name": "Ernesto Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Ernesto Dela Cruz"
+                    "name": "Name",
+                    "value": "Ernesto Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "8",
-            "file": {
+            "detail": {
                 "name": "Felipe Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Felipe Dela Cruz"
+                    "name": "Name",
+                    "value": "Felipe Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "String"
                 }
             ]
         },
         {
             "id": "9",
-            "file": {
+            "detail": {
                 "name": "Geraldo Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Geraldo Dela Cruz"
+                    "name": "Name",
+                    "value": "Geraldo Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         },
         {
             "id": "10",
-            "file": {
+            "detail": {
                 "name": "Hilda Dela Cruz - Interview",
-                "extension": "xlsx"
+                "extension": "xlsx",
+                "createdDate": "2023-09-30T09:50:59.967",
+                "modifiedDate": null
             },
-            "details": [
+            "properties": [
                 {
-                    "property": "Name",
-                    "value": "Hilda Dela Cruz"
+                    "name": "Name",
+                    "value": "Hilda Dela Cruz",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "value": "Media and Ent"
+                    "name": "Sector",
+                    "value": "Media and Ent",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
-                    "value": true
+                    "name": "Passed",
+                    "value": true,
+                    "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "value": "7/10/2023"
-                },
-                {
-                    "property": "Onboarding Date",
-                    "value": "9/10/2023"
+                    "name": "Interview Date",
+                    "value": "7/10/2023",
+                    "type": "Date"
                 }
             ]
         }

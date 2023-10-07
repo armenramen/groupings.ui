@@ -5,20 +5,20 @@
             "name": "Interviews",
             "properties": [
                 {
-                    "property": "Name",
-                    "type": "text"
+                    "name": "Name",
+                    "type": "String"
                 },
                 {
-                    "property": "Sector",
-                    "type": "text"
+                    "name": "Sector",
+                    "type": "String"
                 },
                 {
-                    "property": "Passed",
+                    "name": "Passed",
                     "type": "boolean"
                 },
                 {
-                    "property": "Interview Date",
-                    "type": "date"
+                    "name": "Interview Date",
+                    "type": "Date"
                 }
             ]
         },
@@ -27,7 +27,7 @@
             "name": "Direct Reports",
             "properties": [
                 {
-                    "property": "Name",
+                    "name": "Name",
                     "type": "text"
                 }
             ]
@@ -37,8 +37,24 @@
             "name": "Progression",
             "properties": [
                 {
-                    "property": "Name",
-                    "type": "text"
+                    "name": "Name",
+                    "type": "String"
+                },
+                {
+                    "name": "Status",
+                    "type": "String"
+                },
+                {
+                    "name": "IsAvailable",
+                    "type": "boolean"
+                },
+                {
+                    "name": "IsExternal",
+                    "type": "boolean"
+                },
+                {
+                    "name": "Sector",
+                    "type": "String"
                 }
             ]
         },
@@ -47,7 +63,7 @@
             "name": "Summer Outing Participants",
             "properties": [
                 {
-                    "property": "Name",
+                    "name": "Name",
                     "type": "text"
                 }
             ]
