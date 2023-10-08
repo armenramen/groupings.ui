@@ -7,6 +7,7 @@ import { AddGroupComponent } from './components/add-group/add-group.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AddFileComponent } from './components/add-file/add-file.component';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -22,17 +23,21 @@ export class AppComponent implements OnInit {
   isLoading = false;
   selectedItems: any[] = [];
   selectedItem: any = null;
+  get isLoggedIn() {
+    return this.userService.userId !== '' && this.userService.userId !== null;
+  }
 
-  constructor(private service: GroupingsService,
-    private dialog: MatDialog) {
+  constructor(private groupService: GroupingsService,
+    private userService: UserService,
+    private dialog: MatDialog,) {
   }
 
   ngOnInit(): void {
-    this.groupingList$ = this.service.getGroupingList();
+    this.groupingList$ = this.groupService.getGroupingList();
 
     this.dataSource$ = this.selectedGroup$.pipe(
       tap(() => this.isLoading = true),
-      switchMap(group => this.service.getGroupItems(group)),
+      switchMap(group => this.groupService.getGroupItems(group)),
       tap(() => this.isLoading = false),
       share()
     )

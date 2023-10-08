@@ -1,6 +1,22 @@
 .new-file {
+  &-form {
+    min-width: 30vw;
+    display: flex;
+    flex-direction: column;
+  }
+
   &-upload {
     height: 300px;
     width: 400px;
+  }
+
+  &-form-prop {
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field,
+    mat-checkbox {
+      margin-bottom: 10px;
+    }
   }
 }

@@ -1,0 +1,46 @@
+{
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "detail": {
+        "name": "Test",
+        "extension": "xlsx",
+        "createdDate": "2023-10-07T09:10:53.924Z",
+        "modifiedDate": "2023-10-07T09:10:53.924Z"
+    },
+    "recommendedProperties": [
+        {
+            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "name": "Name",
+            "value": "",
+            "type": "String",
+            "recommended": "John Smith"
+        },
+        {
+            "id": "b1d0362b-7026-4575-8c34-eeb983bc7a15",
+            "name": "IsExternal",
+            "value": true,
+            "type": "boolean",
+            "recommended": "true"
+        },
+        {
+            "id": "b5c4a495-7c06-4b41-ab24-b2ebbff6b47b",
+            "name": "Sector",
+            "value": "Japan CSU",
+            "type": "String",
+            "recommended": "Japan CSU"
+        },
+        {
+            "id": "6919c3db-8db3-4bed-acac-7f9bef354b80",
+            "name": "IsAvailable",
+            "value": false,
+            "type": "boolean",
+            "recommended": "false"
+        },
+        {
+            "id": "2baacf51-24a0-46cf-912d-10e924cd2062",
+            "name": "Status",
+            "value": "Passed",
+            "type": "String",
+            "recommended": "Passed"
+        }
+    ]
+}

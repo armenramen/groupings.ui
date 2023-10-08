@@ -1,85 +1,102 @@
-<h2>Task Grouping</h2>
+<div class="task-grouping" *ngIf="isLoggedIn; else login">
+  <h2>Task Grouping</h2>
 
-<div class="d-flex-row d-align-ctr">
-  <app-group-select
-    *ngIf="groupingList$ | async as groupingList"
-    [groupingList]="groupingList.items"
-    (groupSelected)="onGroupSelected($event)"
-  ></app-group-select>
-  <div class="group-actions-row">
+  <div class="d-flex-row d-align-ctr">
+    <app-group-select
+      *ngIf="groupingList$ | async as groupingList"
+      [groupingList]="groupingList.items"
+      (groupSelected)="onGroupSelected($event)"
+    ></app-group-select>
+    <div class="group-actions-row">
+      <button
+        mat-button
+        class="add-group-btn"
+        *ngIf="selectedGroup"
+        (click)="openEditGroupModal()"
+      >
+        Edit Group
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-button *ngIf="selectedGroup">
+        Generate report
+        <mat-icon>trending_up</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        class="add-group-btn"
+        (click)="openAddGroupModal()"
+      >
+        New Group
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="grid-actions-row">
     <button
-      mat-button
-      class="add-group-btn"
-      *ngIf="selectedGroup"
-      (click)="openEditGroupModal()"
-    >
-      Edit Group
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-button *ngIf="selectedGroup">
-      Generate report
-      <mat-icon>trending_up</mat-icon>
-    </button>
-    <button
-      mat-raised-button
+      mat-stroked-button
       color="accent"
-      class="add-group-btn"
-      (click)="openAddGroupModal()"
+      (click)="openUploadFileModal()"
+      [disabled]="!selectedGroup"
     >
-      New Group
-      <mat-icon>add</mat-icon>
+      Upload New File
+      <mat-icon>upload</mat-icon>
     </button>
-  </div>
-</div>
-
-<mat-divider></mat-divider>
-<div class="grid-actions-row">
-  <button mat-stroked-button color="accent" (click)="openUploadFileModal()">
-    Upload New File
-    <mat-icon>upload</mat-icon>
-  </button>
-  <button
-    mat-stroked-button
-    [disabled]="selectedItems.length < 1"
-    *ngIf="viewGroup.value === 'table'"
-  >
-    Delete
-    <mat-icon>delete</mat-icon>
-  </button>
-
-  <div class="right">
-    <mat-button-toggle-group
-      #viewGroup="matButtonToggleGroup"
-      class="view-toggle"
-      aria-label="Details View"
-      [value]="'icon'"
+    <button
+      mat-stroked-button
+      [disabled]="selectedItems.length < 1"
+      *ngIf="viewGroup.value === 'table'"
     >
-      <mat-button-toggle value="icon" matTooltip="Icon View">
-        <mat-icon>grid_view</mat-icon>
-      </mat-button-toggle>
-      <mat-button-toggle value="table" matTooltip="Table View">
-        <mat-icon>table_view</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
+      Delete
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <div class="right">
+      <mat-button-toggle-group
+        #viewGroup="matButtonToggleGroup"
+        class="view-toggle"
+        aria-label="Details View"
+        [value]="'icon'"
+      >
+        <mat-button-toggle value="icon" matTooltip="Icon View">
+          <mat-icon>grid_view</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="table" matTooltip="Table View">
+          <mat-icon>table_view</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
   </div>
+
+  <!-- ICON VIEW -->
+  <ng-container *ngIf="dataSource$ | async as data">
+    <app-group-icon-view
+      *ngIf="viewGroup.value === 'icon' && !isLoading"
+      [dataSource]="data.files"
+      [selectedGroup]="selectedGroup"
+    ></app-group-icon-view>
+  </ng-container>
+
+  <!-- TABLE VIEW -->
+  <ng-container *ngIf="gridData$ | async as data">
+    <app-group-table
+      *ngIf="viewGroup.value === 'table' && !isLoading"
+      [dataSource]="data"
+      [selectedGroup]="selectedGroup"
+      (selectionChanged)="onSelectRow($event)"
+    ></app-group-table>
+  </ng-container>
+
+  <ng-container *ngIf="isLoading">
+    <mat-spinner class="spinner" color="accent"> </mat-spinner>
+  </ng-container>
 </div>
 
-<ng-container *ngIf="dataSource$ | async as data">
-  <app-group-icon-view
-    *ngIf="viewGroup.value === 'icon' && !isLoading"
-    [dataSource]="data.files"
-    [selectedGroup]="selectedGroup"
-  ></app-group-icon-view>
-</ng-container>
-<ng-container *ngIf="gridData$ | async as data">
-  <app-group-table
-    *ngIf="viewGroup.value === 'table' && !isLoading"
-    [dataSource]="data"
-    [selectedGroup]="selectedGroup"
-    (selectionChanged)="onSelectRow($event)"
-  ></app-group-table>
-</ng-container>
+<ng-template #login>
+  <app-user-login></app-user-login>
+</ng-template>
 
-<ng-container *ngIf="isLoading">
-  <mat-spinner class="spinner" color="accent"> </mat-spinner>
-</ng-container>
+<ng-template #viewToggleTemplate> </ng-template>

@@ -1,0 +1,47 @@
+<div class="login">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h3>Log In with your IBM email</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="login-form" [formGroup]="loginForm" (submit)="login()">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="example@ibm.com"
+            required
+            formControlName="email"
+          />
+          <mat-error *ngIf="email.invalid">
+            <ng-container *ngIf="email.hasError('email')">
+              Please enter a valid email
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        mat-raised-button
+        color="primary"
+        class="login-button"
+        [disabled]="isLoading"
+        type="submit"
+        (click)="login()"
+      >
+        LOGIN
+      </button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-progress-bar
+        mode="indeterminate"
+        color="accent"
+        *ngIf="isLoading"
+      ></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>

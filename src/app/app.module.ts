@@ -31,6 +31,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { GroupIconViewComponent } from './components/group-icon-view/group-icon-view.component';
 import { AddFileComponent } from './components/add-file/add-file.component';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { HttpClientModule } from '@angular/common/http';
+import { FileService } from './services/file.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { UserLoginComponent } from './components/user-login/user-login.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     GroupTableComponent,
     EditGroupComponent,
     GroupIconViewComponent,
-    AddFileComponent
+    AddFileComponent,
+    UserLoginComponent
   ],
   imports: [
     FormsModule,
@@ -65,10 +71,14 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatTooltipModule,
     MatCardModule,
     MatGridListModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    HttpClientModule,
+    MatProgressBarModule
   ],
   providers: [
-    GroupingsService
+    GroupingsService,
+    FileService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,14 +1,57 @@
 <div class="new-file">
-  <h2 mat-dialog-title>New file</h2>
-  <mat-dialog-content class="">
+  <h2 mat-dialog-title>Upload new file</h2>
+  <mat-dialog-content>
     <form class="new-file-form" [formGroup]="form">
-      <mat-form-field placeholder="Test">
+      <mat-form-field>
+        <mat-label>Select file</mat-label>
         <ngx-mat-file-input
           formControlName="file"
-          [placeholder]="'Basic Input'"
+          [multiple]="false"
+          #fileInput
         ></ngx-mat-file-input>
-        <mat-icon matSuffix>folder</mat-icon>
+
+        <mat-icon matSuffix *ngIf="fileInput.empty">folder</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          *ngIf="!fileInput.empty"
+          (click)="fileInput.clear($event)"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
       </mat-form-field>
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="isUploading"
+      ></mat-progress-bar>
+
+      <ng-container
+        formArrayName="properties"
+        *ngIf="propFormArray.controls.length"
+      >
+        <h3>Details</h3>
+        <div
+          class="new-file-form-prop"
+          *ngFor="let propForm of propFormArray.controls; let i = index"
+        >
+          <ng-container [formGroupName]="i">
+            <!-- VALUE -->
+            <mat-form-field
+              *ngIf="propForm.get('type')?.value !== valueType.Boolean"
+            >
+              <input type="text" matInput formControlName="value" />
+              <mat-label>{{ propForm.get('name')?.value }}</mat-label>
+            </mat-form-field>
+            <mat-checkbox
+              *ngIf="propForm.get('type')?.value === valueType.Boolean"
+              formControlName="value"
+              >{{ propForm.get('name')?.value }}</mat-checkbox
+            >
+
+            <!-- END OF VALUE -->
+          </ng-container>
+        </div>
+      </ng-container>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions align="end">

@@ -1,0 +1,41 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  background: #12c2e9; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+  background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+  background-size: 200% 200%;
+  animation: gradientBG 10s ease infinite;
+
+  display: flex;
+  align-items: center;
+
+  &-card {
+    width: 500px;
+    max-height: 300px;
+    margin: auto;
+  }
+
+  &-form {
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-button {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
