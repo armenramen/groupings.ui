@@ -77,6 +77,9 @@
       *ngIf="viewGroup.value === 'icon' && !isLoading"
       [dataSource]="data.files"
       [selectedGroup]="selectedGroup"
+      (updateFile)="saveFile($event)"
+      [isEditMode]="iconViewEditMode"
+      [isLoading]="isEditLoading"
     ></app-group-icon-view>
   </ng-container>
 

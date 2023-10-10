@@ -37,6 +37,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { UserService } from './services/user.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { UserService } from './services/user.service';
     MaterialFileInputModule,
     HttpClientModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     GroupingsService,

@@ -66,5 +66,10 @@
         margin-bottom: 10px;
       }
     }
+
+    .file-detail-form-prop {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }

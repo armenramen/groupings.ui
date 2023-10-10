@@ -37,7 +37,10 @@
           <ng-container [formGroupName]="i">
             <!-- VALUE -->
             <mat-form-field
-              *ngIf="propForm.get('type')?.value !== valueType.Boolean"
+              *ngIf="
+                propForm.get('type')?.value === valueType.String ||
+                propForm.get('type')?.value === valueType.Number
+              "
             >
               <input type="text" matInput formControlName="value" />
               <mat-label>{{ propForm.get('name')?.value }}</mat-label>
@@ -47,6 +50,22 @@
               formControlName="value"
               >{{ propForm.get('name')?.value }}</mat-checkbox
             >
+            <mat-form-field
+              *ngIf="propForm.get('type')?.value === valueType.Date"
+            >
+              <mat-label>{{ propForm.get('name')?.value }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="value"
+                placeholder="MM/DD/YYYY"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
             <!-- END OF VALUE -->
           </ng-container>

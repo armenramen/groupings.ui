@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
   isLoading = false;
   selectedItems: any[] = [];
   selectedItem: any = null;
+  iconViewEditMode = false;
+  isEditLoading = false;
 
   get isLoggedIn() {
     return this.userService.userId !== '' && this.userService.userId !== null;
@@ -115,6 +117,27 @@ export class AppComponent implements OnInit {
 
   onSelectRow(selection: any) {
     this.selectedItems = selection
+  }
+
+  saveFile(formValue: any) {
+    this.isEditLoading = true;
+    this.fileService.saveUserFile({
+      userId: this.userService.userId,
+      detail: formValue.detail,
+      userFileId: formValue.id,
+      properties: formValue.properties
+    }).pipe(catchError(error => of({ error })))
+      .subscribe((res: any) => {
+        this.isEditLoading = false;
+        this.iconViewEditMode = false;
+
+        if (res.error) {
+          this.openErrorSnackBar();
+          return;
+        }
+
+        this.openSuccessToast('File successfully updated');
+      })
   }
 
   fetchGroupDetailAndFiles() {

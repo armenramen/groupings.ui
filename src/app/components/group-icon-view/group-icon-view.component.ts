@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
-import { FileProperty, GroupFileDetail, TaskGrouping } from 'src/app/utilities/models/response-models';
+import { FileIconMap } from 'src/app/utilities/enum';
+import { FileProperty, GroupFileDetail, ProperyValueType, TaskGrouping } from 'src/app/utilities/models/response-models';
 
 @Component({
   selector: 'app-group-icon-view',
@@ -11,14 +12,49 @@ import { FileProperty, GroupFileDetail, TaskGrouping } from 'src/app/utilities/m
 export class GroupIconViewComponent implements OnInit {
   @Input() dataSource: any[] = [];
   @Input() selectedGroup!: TaskGrouping | null;
-  selectedItem: any = null;
-  editFormArray!: FormArray
+  @Input() isEditMode = false;
+  @Input() isLoading = false;
 
-  readonly XLSX_ICON_PATH = '../assets/img/excel.svg';
+  @Output() updateFile = new EventEmitter();
+  selectedItem: any = null;
+  editFormGroup!: FormGroup;
+  valueType = ProperyValueType;
+
+
+  get propertiesFormArray() {
+    return this.editFormGroup.get('properties') as FormArray;
+  }
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  private buildForm() {
+    this.editFormGroup = this.fb.group({
+      id: [''],
+      detail: [''],
+      properties: this.fb.array([])
+    }, {
+      disabled: this.isLoading
+    })
+  }
+
+  private patchFormValues(val: any) {
+    this.editFormGroup.patchValue({
+      id: val.id,
+      detail: val.detail,
+    });
+
+    val.properties.forEach((prop: FileProperty) => {
+      this.propertiesFormArray.push(this.fb.group({
+        id: [prop.id],
+        name: [prop.name, Validators.required],
+        value: [prop.value],
+        type: [prop.type]
+      }))
+    });
   }
 
   onCardSelect(item: any, drawer: MatDrawer) {
@@ -27,11 +63,8 @@ export class GroupIconViewComponent implements OnInit {
   }
 
   getImage(file: GroupFileDetail) {
-    if (file.extension === 'xlsx') {
-      return this.XLSX_ICON_PATH;
-    }
-
-    return '';
+    const map = FileIconMap as any;
+    return map[file.extension];
   }
 
   getFileName(file: GroupFileDetail) {
@@ -39,13 +72,19 @@ export class GroupIconViewComponent implements OnInit {
   }
 
   onEditClick() {
+    this.isEditMode = true;
     console.log(this.selectedItem);
-    this.editFormArray = this.fb.array([]);
-    this.selectedItem.files.forEach((detail: FileProperty) => {
-      this.editFormArray.push(new FormControl(detail))
-    })
+    this.patchFormValues(this.selectedItem);
+    console.log(this.editFormGroup);
+  }
 
-    console.log(this.editFormArray)
+  onCancelEdit() {
+    this.isEditMode = false;
+    this.propertiesFormArray.clear();
+  }
+
+  onClickSave(formValue: any) {
+    this.updateFile.emit(formValue);
   }
 
 }
