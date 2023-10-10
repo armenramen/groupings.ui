@@ -48,23 +48,21 @@ export class GroupingsService {
     })
   }
 
-  getGroupDetail(userId: string, taskGroupingId: string) {
+  getGroupListWithProps(userId: string) {
     if (this.useMock) {
-      return this.mockGroupDetail(taskGroupingId)
+      return this.mockGroupDetail();
     }
 
-    const url = `${this.apiUrl}/GetTaskGroupingDetail`;
+    const url = `${this.apiUrl}/GetTaskGroupingInfos`;
     return this.http.get(url, {
       headers: {
-        userId,
-        taskGroupingId
+        userId
       }
     })
   }
 
   updateGroup(userId: string, group: any) {
     if (this.useMock) {
-      console.log('Group to save', group)
       return this.mockSaveGroup(group);
     }
 
@@ -95,13 +93,12 @@ export class GroupingsService {
     return of(mockData).pipe(delay(600))
   }
 
-  private mockGroupDetail(groupId: string) {
-    const groups = GROUPS_WITH_PROPS;
-    return of(groups.items.find(g => g.id === groupId));
+  private mockGroupDetail() {
+    return of(GROUPS_WITH_PROPS);
   }
 
   private mockSaveGroup(group: any) {
-    return of(group)
+    return of(group).pipe(delay(600));
   }
 
 }

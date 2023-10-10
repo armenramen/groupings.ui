@@ -42,22 +42,27 @@ export class FileService {
         ...this.fileHeader,
         userId,
         taskGroupingId,
-        userFileId,
+        userFileId: userFileId || '',
       }
     })
   }
 
-  saveUserFile({ userId, taskGroupingId, userFileId }: any) {
+  saveUserFile({ userId, detail, userFileId, properties }: any) {
     if (this.useMock) {
       return this.mockSaveFile();
     }
 
     const url = `${this.apiUrl}/SaveUserFile`;
-    return this.http.post(url, {}, {
+    const body = {
+      id: userFileId,
+      detail,
+      properties
+    }
+    return this.http.post(url, body, {
       headers: {
         userId,
-        taskGroupingId,
-        userFileId,
+        taksGroupingId: detail.userTaskGroupingId,
+        userFileId: userFileId || '',
       }
     })
   }
@@ -67,11 +72,11 @@ export class FileService {
   }
 
   private mockUserFile() {
-    return of();
+    return of(UPLOAD_RES).pipe(delay(1000));
   }
 
   private mockSaveFile() {
-    return of();
+    return of(UPLOAD_RES).pipe(delay(1000));
   }
 
 }

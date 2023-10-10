@@ -63,13 +63,12 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="{ type: 'close' }">Cancel</button>
+  <button mat-button mat-dialog-close>Cancel</button>
   <button
     mat-raised-button
-    [mat-dialog-close]="{ value: formGroup.value, type: 'submit' }"
     color="accent"
-    type="submit"
     [disabled]="formGroup.pristine || formGroup.invalid"
+    (click)="saveGroup(formGroup.value)"
   >
     Submit
   </button>

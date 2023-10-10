@@ -3,6 +3,7 @@
     "detail": {
         "name": "Test",
         "extension": "xlsx",
+        "userTaskGroupingId": "id here",
         "createdDate": "2023-10-07T09:10:53.924Z",
         "modifiedDate": "2023-10-07T09:10:53.924Z"
     },

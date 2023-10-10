@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, catchError, concatMap, filter, finalize, map, mergeMap, of, share, startWith, switchMap, take, tap } from 'rxjs';
 import { GroupingsService } from './services/groupings.service';
 import { ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
 import { MatDrawer } from '@angular/material/sidenav';
 import { AddFileComponent } from './components/add-file/add-file.component';
 import { UserService } from './services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FileService } from './services/file.service';
 
 @Component({
   selector: 'app-root',
@@ -32,12 +33,13 @@ export class AppComponent implements OnInit {
 
   constructor(private groupService: GroupingsService,
     private userService: UserService,
+    private fileService: FileService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
-    this.groupingList$ = this.groupService.getGroupingList(this.userService.userId);
+    this.groupingList$ = this.groupService.getGroupListWithProps(this.userService.userId);
     this.dataSource$ = this.fetchGroupDetailAndFiles();
     this.gridData$ = this.dataSource$.pipe(
       map(this.mapResponseToGridItems)
@@ -63,40 +65,52 @@ export class AppComponent implements OnInit {
 
   openUploadFileModal() {
     const dialogRef = this.dialog.open(AddFileComponent, {
+      data: {
+        groupId: this.selectedGroup?.id,
+        userId: this.userService.userId
+      },
       disableClose: true
     });
+    this.handleUploadModalClose(dialogRef);
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result:`, result);
+  handleUploadModalClose(dialogRef: MatDialogRef<any>) {
+    dialogRef.afterClosed()
+      .pipe(filter(e => e?.type))
+      .subscribe(result => {
+        if (result.type === 'success') {
+          this.openSuccessToast('File added successfully');
+          // Reload currently selected group
+          this.selectedGroup$.next(this.selectedGroup);
+        } else {
+          this.openErrorSnackBar();
+        }
 
-    });
+      });
   }
 
   openEditGroupModal() {
     const dialogRef = this.dialog.open(EditGroupComponent, {
       data: {
-        group: this.selectedGroup
+        group: this.selectedGroup,
+        userId: this.userService.userId
       },
       disableClose: true
     });
+    this.handleEditGroupModalClose(dialogRef);
+  }
 
-
-    dialogRef.afterClosed().pipe(
-      filter(event => event.type === 'submit'),
-      mergeMap(group => {
-        return this.groupService.updateGroup(this.userService.userId, group);
-      }),
-      catchError((error: any) => of({ error })))
+  handleEditGroupModalClose(dialogRef: MatDialogRef<any>) {
+    dialogRef.afterClosed()
+      .pipe(filter(e => e?.type))
       .subscribe(result => {
-        if (result.error) {
-          this.openErrorSnackBar()
-          return;
+        if (result.type === 'success') {
+          this.openSuccessToast('Group updated successfully');
+        } else {
+          this.openErrorSnackBar();
         }
-
-        this.snackBar.open('Group successfully updated', undefined, {
-          duration: 2000
-        })
       });
+
   }
 
   onSelectRow(selection: any) {
@@ -106,13 +120,6 @@ export class AppComponent implements OnInit {
   fetchGroupDetailAndFiles() {
     return this.selectedGroup$.pipe(
       tap(() => this.isLoading = true),
-      switchMap((group: any) => this.groupService.getGroupDetail(this.userService.userId, group.id)),
-      tap((group: any) => {
-        if (this.selectedGroup) {
-          this.selectedGroup['properties'] = group.properties
-          console.log(this.selectedGroup)
-        }
-      }),
       switchMap((group: any) => this.groupService.getGroupItems(this.userService.userId, group.id)),
       tap(() => this.isLoading = false),
       share()
@@ -143,6 +150,12 @@ export class AppComponent implements OnInit {
 
   private openErrorSnackBar(errMessage = '') {
     this.snackBar.open(errMessage || 'An error occured. Please try again.', undefined, {
+      duration: 2000
+    })
+  }
+
+  private openSuccessToast(message = '') {
+    this.snackBar.open(message, undefined, {
       duration: 2000
     })
   }
