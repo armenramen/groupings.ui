@@ -34,6 +34,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { HttpClientModule } from '@angular/common/http';
 import { FileService } from './services/file.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { UserService } from './services/user.service';
 
@@ -73,7 +74,8 @@ import { UserService } from './services/user.service';
     MatGridListModule,
     MaterialFileInputModule,
     HttpClientModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [
     GroupingsService,

@@ -9,13 +9,13 @@ import { GroupFile, ProperyValueType, TaskGrouping } from 'src/app/utilities/mod
   templateUrl: './edit-group.component.html',
   styleUrls: ['./edit-group.component.scss']
 })
-export class EditGroupComponent implements OnInit, OnChanges {
+export class EditGroupComponent implements OnInit {
   @Input() group: TaskGrouping | null = null;
 
   formGroup!: FormGroup
 
   get detailsForms() {
-    return this.formGroup.get('details') as FormArray;
+    return this.formGroup.get('properties') as FormArray;
   }
 
   constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: { group: TaskGrouping }) { }
@@ -23,26 +23,25 @@ export class EditGroupComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.group = this.data.group;
     this.formGroup = this.fb.group({
+      groupId: [this.group.id],
       groupName: [this.group?.name],
-      details: this.fb.array([])
+      properties: this.fb.array([])
     });
     this.group?.properties.forEach((prop) => {
-      this.addProperty(prop)
+      this.addProperty(prop);
     })
-
-    console.log(this.group);
-    console.log(this.formGroup);
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
   }
 
   addProperty(val?: any) {
     this.detailsForms.push(this.fb.group({
-      propertyName: [val?.name || '', [Validators.required]],
-      type: [val?.type || ProperyValueType.String, Validators.required]
+      name: [val?.name || '', [Validators.required]],
+      type: [val?.type || ProperyValueType.String, Validators.required],
+      id: [val?.id || '']
     }))
+  }
+
+  deleteProperty(index: number) {
+    this.detailsForms.removeAt(index);
   }
 
 

@@ -1,10 +1,16 @@
 .group-form {
+  min-width: 30vw;
+
   &-prop {
     display: flex;
     align-items: center;
 
     mat-form-field {
       margin-right: 30px;
+    }
+
+    &-delete {
+      align-self: flex-start;
     }
   }
 }

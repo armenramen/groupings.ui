@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
 
     <h3>Details</h3>
-    <ng-container formArrayName="details">
+    <ng-container formArrayName="properties">
       <div
         class="group-form-prop"
         *ngFor="let detailForm of detailsForms.controls; let i = index"
@@ -24,7 +24,7 @@
             <input
               matInput
               placeholder="Property name"
-              formControlName="propertyName"
+              formControlName="name"
             />
           </mat-form-field>
           <mat-form-field>
@@ -45,6 +45,14 @@
             <mat-label>Type</mat-label>
           </mat-form-field>
         </ng-container>
+        <button
+          class="group-form-prop-delete"
+          mat-icon-button
+          color="warn"
+          (click)="deleteProperty(i)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </ng-container>
     <div class="group-form-add-prop">
@@ -55,8 +63,14 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="formGroup.value" color="accent">
+  <button mat-button [mat-dialog-close]="{ type: 'close' }">Cancel</button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="{ value: formGroup.value, type: 'submit' }"
+    color="accent"
+    type="submit"
+    [disabled]="formGroup.pristine || formGroup.invalid"
+  >
     Submit
   </button>
 </mat-dialog-actions>

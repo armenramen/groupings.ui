@@ -1,7 +1,7 @@
 export interface TaskGrouping {
   id: string,
   name: string,
-  properties: Array<{ name: string, type: string }>
+  properties: Array<{ name: string, type: string, id: string }>
 }
 
 export interface TaskGroupFiles {

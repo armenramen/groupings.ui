@@ -4,7 +4,7 @@
   <div class="d-flex-row d-align-ctr">
     <app-group-select
       *ngIf="groupingList$ | async as groupingList"
-      [groupingList]="groupingList.items"
+      [groupingList]="groupingList"
       (groupSelected)="onGroupSelected($event)"
     ></app-group-select>
     <div class="group-actions-row">
@@ -17,7 +17,7 @@
         Edit Group
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-button *ngIf="selectedGroup">
+      <button mat-button *ngIf="selectedGroup" disabled>
         Generate report
         <mat-icon>trending_up</mat-icon>
       </button>
@@ -98,5 +98,3 @@
 <ng-template #login>
   <app-user-login></app-user-login>
 </ng-template>
-
-<ng-template #viewToggleTemplate> </ng-template>
