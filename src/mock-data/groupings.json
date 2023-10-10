@@ -1,72 +1,34 @@
-{
-    "items": [
-        {
-            "id": "1",
-            "name": "Interviews",
-            "properties": [
-                {
-                    "name": "Name",
-                    "type": "String"
-                },
-                {
-                    "name": "Sector",
-                    "type": "String"
-                },
-                {
-                    "name": "Passed",
-                    "type": "boolean"
-                },
-                {
-                    "name": "Interview Date",
-                    "type": "Date"
-                }
-            ]
-        },
-        {
-            "id": "2",
-            "name": "Direct Reports",
-            "properties": [
-                {
-                    "name": "Name",
-                    "type": "text"
-                }
-            ]
-        },
-        {
-            "id": "3",
-            "name": "Progression",
-            "properties": [
-                {
-                    "name": "Name",
-                    "type": "String"
-                },
-                {
-                    "name": "Status",
-                    "type": "String"
-                },
-                {
-                    "name": "IsAvailable",
-                    "type": "boolean"
-                },
-                {
-                    "name": "IsExternal",
-                    "type": "boolean"
-                },
-                {
-                    "name": "Sector",
-                    "type": "String"
-                }
-            ]
-        },
-        {
-            "id": "4",
-            "name": "Summer Outing Participants",
-            "properties": [
-                {
-                    "name": "Name",
-                    "type": "text"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "id": "Interviews",
+        "name": "Interviews",
+        "createdBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "createdDate": "2023-10-08T15:51:47.555Z",
+        "modifiedBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "modifiedDate": "2023-10-08T15:51:47.555Z"
+    },
+    {
+        "id": "Direct Reports",
+        "name": "Direct Reports",
+        "createdBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "createdDate": "2023-10-08T15:51:47.555Z",
+        "modifiedBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "modifiedDate": "2023-10-08T15:51:47.555Z"
+    },
+    {
+        "id": "Progression",
+        "name": "Progression",
+        "createdBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "createdDate": "2023-10-08T15:51:47.555Z",
+        "modifiedBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "modifiedDate": "2023-10-08T15:51:47.555Z"
+    },
+    {
+        "id": "Summer Outing Participant",
+        "name": "Summer Outing Participants",
+        "createdBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "createdDate": "2023-10-08T15:51:47.555Z",
+        "modifiedBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "modifiedDate": "2023-10-08T15:51:47.555Z"
+    }
+]

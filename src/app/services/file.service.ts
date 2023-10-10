@@ -8,13 +8,28 @@ import UPLOAD_RES from '../../mock-data/file-upload-response.json';
   providedIn: 'root'
 })
 export class FileService {
-  private readonly apiUrl = `${environment.apiUrl}/api/File/`;
+  private readonly apiUrl = `${environment.apiUrl}/api/File`;
   private readonly useMock = environment.useMock;
   private readonly fileHeader = {
     'Content-Type': 'multipart/form-data',
   }
 
   constructor(private http: HttpClient) { }
+
+  getUserFile({ userId, taskGroupingId, userFileId }: any) {
+    if (this.useMock) {
+      return this.mockUserFile();
+    }
+
+    const url = `${this.apiUrl}/GetUserFile`;
+    return this.http.get(url, {
+      headers: {
+        userId,
+        taskGroupingId,
+        userFileId,
+      }
+    })
+  }
 
   uploadUserFile({ file, userId, taskGroupingId, userFileId }: any) {
     if (this.useMock) {
@@ -32,12 +47,31 @@ export class FileService {
     })
   }
 
-  saveUserFile() {
+  saveUserFile({ userId, taskGroupingId, userFileId }: any) {
+    if (this.useMock) {
+      return this.mockSaveFile();
+    }
 
+    const url = `${this.apiUrl}/SaveUserFile`;
+    return this.http.post(url, {}, {
+      headers: {
+        userId,
+        taskGroupingId,
+        userFileId,
+      }
+    })
   }
 
   private getMockFileUploadResponse() {
     return of(UPLOAD_RES).pipe(delay(1000));
+  }
+
+  private mockUserFile() {
+    return of();
+  }
+
+  private mockSaveFile() {
+    return of();
   }
 
 }
