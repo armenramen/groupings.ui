@@ -12,7 +12,7 @@ export interface TaskGroupFiles {
 
 export interface GroupFile {
   id?: string,
-  detail?: GroupFileDetail,
+  detail: GroupFileDetail,
   properties: FileProperty[]
 }
 

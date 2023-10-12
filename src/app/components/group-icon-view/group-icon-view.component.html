@@ -1,130 +1,17 @@
-<mat-drawer-container class="cards-container">
-  <mat-drawer-content>
-    <div class="icon-grid">
-      <div class="icon-grid-item" *ngFor="let item of dataSource">
-        <mat-card
-          [class.selected]="item.id === selectedItem?.id"
-          (click)="onCardSelect(item, drawer)"
-        >
-          <mat-card-content matRipple>
-            <img
-              mat-card-image
-              [src]="getImage(item.detail)"
-              [alt]="getFileName(item.detail)"
-            />
-            <p>{{ getFileName(item.detail) }}</p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-  </mat-drawer-content>
-  <mat-drawer #drawer mode="over" position="end" [disableClose]="isEditMode">
-    <div class="drawer-header">
-      <h3>Details</h3>
-      <button mat-icon-button (click)="drawer.toggle()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-    <div class="drawer-content" *ngIf="selectedItem">
-      <p>
-        <strong>{{ getFileName(selectedItem.detail) }}</strong>
-      </p>
-      <ng-container *ngIf="!isEditMode; else editTemplate">
-        <ng-container *ngFor="let prop of selectedItem?.properties">
-          <p *ngIf="selectedItem">
-            {{ prop?.name }}:
-            <span *ngIf="prop?.type !== 'boolean'; else check">{{
-              prop?.value
-            }}</span>
-            <ng-template #check>
-              <span
-                class="state-badge"
-                [ngClass]="prop.value ? 'state-badge-yes' : 'state-badge-no '"
-              >
-                {{ prop.value ? 'Yes' : 'No' }}
-              </span>
-            </ng-template>
-          </p>
-        </ng-container>
-      </ng-container>
-      <div class="actions">
-        <ng-container *ngIf="!isEditMode; else editActions">
-          <button mat-stroked-button color="accent">
-            Download <mat-icon>download</mat-icon>
-          </button>
-          <button mat-stroked-button color="accent" (click)="onEditClick()">
-            Edit <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-stroked-button color="warn">
-            Delete <mat-icon>delete</mat-icon>
-          </button>
-        </ng-container>
-      </div>
-    </div>
-  </mat-drawer>
-</mat-drawer-container>
-
-<ng-template #editTemplate>
-  <form class="file-detail-form" [formGroup]="editFormGroup">
-    <ng-container formArrayName="properties">
-      <div
-        class="file-detail-form-prop"
-        *ngFor="let propForm of propertiesFormArray.controls; let i = index"
-      >
-        <ng-container [formGroupName]="i">
-          <mat-form-field
-            *ngIf="
-              propForm.get('type')?.value === valueType.String ||
-              propForm.get('type')?.value === valueType.Number
-            "
-          >
-            <input type="text" matInput formControlName="value" />
-            <mat-label>{{ propForm.get('name')?.value }}</mat-label>
-          </mat-form-field>
-          <mat-checkbox
-            *ngIf="propForm.get('type')?.value === valueType.Boolean"
-            formControlName="value"
-            >{{ propForm.get('name')?.value }}</mat-checkbox
-          >
-          <mat-form-field
-            *ngIf="propForm.get('type')?.value === valueType.Date"
-          >
-            <mat-label>{{ propForm.get('name')?.value }}</mat-label>
-            <input
-              matInput
-              [matDatepicker]="picker"
-              formControlName="value"
-              placeholder="MM/DD/YYYY"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-          <!-- END OF VALUE -->
-        </ng-container>
-      </div>
-    </ng-container>
-  </form>
-</ng-template>
-<ng-template #editActions>
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="onClickSave(editFormGroup.value)"
-    [disabled]="isLoading || editFormGroup.invalid"
-  >
-    Save
-  </button>
-  <button
-    mat-stroked-button
-    color="accent"
-    (click)="onCancelEdit()"
-    [disabled]="isLoading"
-  >
-    Cancel
-  </button>
-  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-</ng-template>
+<div class="icon-grid">
+  <div class="icon-grid-item" *ngFor="let item of dataSource">
+    <mat-card
+      [class.selected]="item.id === selectedItem?.id"
+      (click)="onCardSelect(item)"
+    >
+      <mat-card-content matRipple>
+        <img
+          mat-card-image
+          [src]="getImage(item.detail)"
+          [alt]="getFileName(item.detail)"
+        />
+        <p>{{ getFileName(item.detail) }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

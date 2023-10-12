@@ -1,0 +1,110 @@
+<div class="details-header">
+  <h3>Details</h3>
+</div>
+<div class="details-content" *ngIf="selectedItem">
+  <p>
+    <strong>{{ getFileName(selectedItem.detail) }}</strong>
+  </p>
+  <ng-container *ngIf="!isEditMode; else editTemplate">
+    <ng-container *ngFor="let prop of selectedItem?.properties">
+      <p *ngIf="selectedItem">
+        {{ prop?.name }}:
+        <span *ngIf="prop?.type === valueType.String"> {{ prop?.value }}</span>
+        <span
+          class="state-badge"
+          [ngClass]="prop.value ? 'state-badge-yes' : 'state-badge-no '"
+          *ngIf="prop?.type === valueType.Boolean"
+        >
+          {{ prop.value ? 'Yes' : 'No' }}
+        </span>
+        <span *ngIf="prop?.type === valueType.Date">
+          {{ prop.value | date : 'MM/dd/yyyy hh:mm a' }}
+        </span>
+      </p>
+    </ng-container>
+    <div class="actions">
+      <button
+        mat-stroked-button
+        color="accent"
+        (click)="downloadClicked.emit(selectedItem)"
+      >
+        Download <mat-icon>download</mat-icon>
+      </button>
+      <button mat-stroked-button color="accent" (click)="onEditClick()">
+        Edit <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-stroked-button
+        color="warn"
+        (click)="deleteClicked.emit(selectedItem)"
+      >
+        Delete <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #editTemplate>
+  <form class="file-detail-form" [formGroup]="editFormGroup">
+    <ng-container formArrayName="properties">
+      <div
+        class="file-detail-form-prop"
+        *ngFor="let propForm of propertiesFormArray.controls; let i = index"
+      >
+        <ng-container [formGroupName]="i">
+          <mat-form-field
+            *ngIf="
+              propForm.get('type')?.value === valueType.String ||
+              propForm.get('type')?.value === valueType.Number
+            "
+          >
+            <input type="text" matInput formControlName="value" />
+            <mat-label>{{ propForm.get('name')?.value }}</mat-label>
+          </mat-form-field>
+          <mat-checkbox
+            *ngIf="propForm.get('type')?.value === valueType.Boolean"
+            formControlName="value"
+            >{{ propForm.get('name')?.value }}</mat-checkbox
+          >
+          <mat-form-field
+            *ngIf="propForm.get('type')?.value === valueType.Date"
+          >
+            <mat-label>{{ propForm.get('name')?.value }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="value"
+              placeholder="MM/DD/YYYY"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <!-- END OF VALUE -->
+        </ng-container>
+      </div>
+    </ng-container>
+  </form>
+  <div class="actions">
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="onClickSave(editFormGroup.value)"
+      [disabled]="isSaveDisabled"
+    >
+      Save
+    </button>
+    <button
+      mat-stroked-button
+      color="accent"
+      (click)="onCancelEdit()"
+      [disabled]="isLoading"
+    >
+      Cancel
+    </button>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+  </div>
+</ng-template>

@@ -67,6 +67,36 @@ export class FileService {
     })
   }
 
+  downloadFile({ userId, taskGroupingId, userFileId }: any) {
+    if (this.useMock) {
+      return of({}).pipe(delay(1000));
+    }
+
+    const url = `${this.apiUrl}/DownloadUserFile`;
+    return this.http.get(url, {
+      headers: {
+        userId,
+        taskGroupingId,
+        userFileId: userFileId,
+      }
+    });
+  }
+
+  deleteFile({ userId, taskGroupingId, userFileId }: any) {
+    if (this.useMock) {
+      return of({}).pipe(delay(1000));
+    }
+
+    const url = `${this.apiUrl}/DeleteUserFile`;
+    return this.http.delete(url, {
+      headers: {
+        userId,
+        taskGroupingId,
+        userFileId: userFileId,
+      }
+    });
+  }
+
   private getMockFileUploadResponse() {
     return of(UPLOAD_RES).pipe(delay(1000));
   }

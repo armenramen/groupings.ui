@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, catchError, concatMap, filter, finalize, map, mergeMap, of, share, startWith, switchMap, take, tap } from 'rxjs';
 import { GroupingsService } from './services/groupings.service';
-import { ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
+import { GroupFile, ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
@@ -25,8 +25,11 @@ export class AppComponent implements OnInit {
   isLoading = false;
   selectedItems: any[] = [];
   selectedItem: any = null;
-  iconViewEditMode = false;
+  isEditMode = false;
   isEditLoading = false;
+  valueType = ProperyValueType;
+  viewMode = 'icon';
+
 
   get isLoggedIn() {
     return this.userService.userId !== '' && this.userService.userId !== null;
@@ -51,6 +54,11 @@ export class AppComponent implements OnInit {
   onGroupSelected(group: any) {
     this.selectedGroup = group;
     this.selectedGroup$.next(group);
+  }
+
+  onFileSelected(file: any, drawer: MatDrawer) {
+    this.selectedItem = file;
+    drawer.toggle();
   }
 
   openAddGroupModal() {
@@ -81,11 +89,11 @@ export class AppComponent implements OnInit {
       .pipe(filter(e => e?.type))
       .subscribe(result => {
         if (result.type === 'success') {
-          this.openSuccessToast('File added successfully');
+          this.openSuccessAlert('File added successfully');
           // Reload currently selected group
           this.selectedGroup$.next(this.selectedGroup);
         } else {
-          this.openErrorSnackBar();
+          this.openErrorAlert();
         }
 
       });
@@ -107,9 +115,9 @@ export class AppComponent implements OnInit {
       .pipe(filter(e => e?.type))
       .subscribe(result => {
         if (result.type === 'success') {
-          this.openSuccessToast('Group updated successfully');
+          this.openSuccessAlert('Group updated successfully');
         } else {
-          this.openErrorSnackBar();
+          this.openErrorAlert();
         }
       });
 
@@ -117,6 +125,20 @@ export class AppComponent implements OnInit {
 
   onSelectRow(selection: any) {
     this.selectedItems = selection
+  }
+
+  fetchGroupDetailAndFiles() {
+    return this.selectedGroup$.pipe(
+      tap(() => this.isLoading = true),
+      switchMap((group: any) => this.groupService.getGroupItems(this.userService.userId, group.id)),
+      tap(() => this.isLoading = false),
+      share()
+    );
+  }
+
+  closeDrawer(drawer: MatDrawer) {
+    this.isEditMode = false;
+    drawer.close();
   }
 
   saveFile(formValue: any) {
@@ -129,25 +151,49 @@ export class AppComponent implements OnInit {
     }).pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
         this.isEditLoading = false;
-        this.iconViewEditMode = false;
+        this.isEditMode = false;
 
         if (res.error) {
-          this.openErrorSnackBar();
+          this.openErrorAlert();
           return;
         }
 
-        this.openSuccessToast('File successfully updated');
+        this.openSuccessAlert('File successfully updated');
       })
   }
 
-  fetchGroupDetailAndFiles() {
-    return this.selectedGroup$.pipe(
-      tap(() => this.isLoading = true),
-      switchMap((group: any) => this.groupService.getGroupItems(this.userService.userId, group.id)),
-      tap(() => this.isLoading = false),
-      share()
-    );
+  downloadFile(file: GroupFile) {
+    this.fileService.downloadFile({
+      userId: this.userService.userId,
+      taskGroupingId: this.selectedGroup?.id,
+      userFileId: file.id
+    }).pipe(catchError(error => of({ error })))
+      .subscribe((res: any) => {
+        if (res.error) {
+          this.openErrorAlert();
+          return;
+        }
 
+        this.openSuccessAlert('File is being downloaded.')
+      });
+  }
+
+  deleteFile(file: any, drawer: MatDrawer) {
+    this.fileService.deleteFile({
+      userId: this.userService.userId,
+      taskGroupingId: this.selectedGroup?.id,
+      userFileId: file.id
+    }).pipe(catchError(error => of({ error })))
+      .subscribe((res: any) => {
+        if (res.error) {
+          this.openErrorAlert();
+          return;
+        }
+
+        this.openSuccessAlert('File has been deleted');
+        drawer.close();
+        this.selectedGroup$.next(this.selectedGroup);
+      });
   }
 
   private mapResponseToGridItems(res: TaskGroupFiles) {
@@ -171,13 +217,13 @@ export class AppComponent implements OnInit {
 
   }
 
-  private openErrorSnackBar(errMessage = '') {
+  private openErrorAlert(errMessage = '') {
     this.snackBar.open(errMessage || 'An error occured. Please try again.', undefined, {
       duration: 2000
     })
   }
 
-  private openSuccessToast(message = '') {
+  private openSuccessAlert(message = '') {
     this.snackBar.open(message, undefined, {
       duration: 2000
     })

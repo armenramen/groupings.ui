@@ -39,6 +39,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { UserService } from './services/user.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FileDetailsComponent } from './components/file-details/file-details.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     EditGroupComponent,
     GroupIconViewComponent,
     AddFileComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    FileDetailsComponent
   ],
   imports: [
     FormsModule,

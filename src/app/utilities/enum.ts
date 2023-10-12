@@ -16,7 +16,7 @@ export enum FileExtensions {
 export const FileIconMap = {
     'xlsx': '../assets/img/excel.svg',
     'docx': '../assets/img/docx.svg',
-    'jpeg': '../assets/img/docx.svg',
-    'png': '../assets/img/docx.svg',
+    'jpeg': '../assets/img/image.svg',
+    'png': '../assets/img/image.svg',
     'pdf': '../assets/img/pdf.svg'
 }

@@ -1,75 +1,21 @@
-.cards-container {
-  border: 1px solid #0000001f;
+.icon-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
-  mat-drawer-content {
-    min-height: 60vh;
+  &-item {
+    margin: 5px 5px 15px 5px;
+  }
+}
+
+mat-card {
+  width: 200px;
+
+  img {
+    width: 150px;
   }
 
-  .icon-grid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    &-item {
-      margin: 5px 5px 15px 5px;
-    }
-  }
-
-  mat-card {
-    width: 200px;
-
-    img {
-      width: 150px;
-    }
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  mat-drawer {
-    width: 40%;
-    padding: 20px;
-
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .drawer-content {
-      p {
-        margin: 30px 0;
-      }
-
-      .state-badge {
-        padding: 7px;
-        color: white;
-        border-radius: 7px;
-        font-size: 13px;
-        text-transform: uppercase;
-
-        &-yes {
-          background-color: green;
-        }
-
-        &-no {
-          background-color: #f44336;
-        }
-      }
-    }
-
-    .actions {
-      display: flex;
-      flex-direction: column;
-
-      button {
-        margin-bottom: 10px;
-      }
-    }
-
-    .file-detail-form-prop {
-      display: flex;
-      flex-direction: column;
-    }
+  &:hover {
+    cursor: pointer;
   }
 }

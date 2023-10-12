@@ -33,7 +33,7 @@
                 {
                     "id": "4",
                     "name": "Interview Date",
-                    "value": "7/10/2023",
+                    "value": "2023-09-30T09:50:59.967",
                     "type": "Date"
                 }
             ]
@@ -42,7 +42,7 @@
             "id": "2",
             "detail": {
                 "name": "John Dela Cruz - Interview",
-                "extension": "xlsx",
+                "extension": "pdf",
                 "createdDate": "2023-09-30T09:50:59.967",
                 "modifiedDate": null,
                 "userTaskGroupingId": "test"
@@ -78,7 +78,7 @@
             "id": "3",
             "detail": {
                 "name": "Alex Dela Cruz - Interview",
-                "extension": "xlsx",
+                "extension": "jpeg",
                 "createdDate": "2023-09-30T09:50:59.967",
                 "modifiedDate": null,
                 "userTaskGroupingId": "test"
@@ -114,7 +114,7 @@
             "id": "4",
             "detail": {
                 "name": "Bryan Dela Cruz - Interview",
-                "extension": "xlsx",
+                "extension": "docx",
                 "createdDate": "2023-09-30T09:50:59.967",
                 "modifiedDate": null,
                 "userTaskGroupingId": "test"

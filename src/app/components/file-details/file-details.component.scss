@@ -1,0 +1,40 @@
+.details-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-content {
+  p {
+    margin: 30px 0;
+  }
+
+  .state-badge {
+    padding: 7px;
+    color: white;
+    border-radius: 7px;
+    font-size: 13px;
+    text-transform: uppercase;
+
+    &-yes {
+      background-color: green;
+    }
+
+    &-no {
+      background-color: #f44336;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin-bottom: 10px;
+  }
+}
+
+.file-detail-form-prop {
+  display: flex;
+  flex-direction: column;
+}
