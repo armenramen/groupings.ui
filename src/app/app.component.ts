@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
   valueType = ProperyValueType;
   viewMode = 'icon';
 
-
   get isLoggedIn() {
     return this.userService.userId !== '' && this.userService.userId !== null;
   }
@@ -44,11 +43,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.groupingList$ = this.groupService.getGroupListWithProps(this.userService.userId);
-    this.dataSource$ = this.fetchGroupDetailAndFiles();
-    this.gridData$ = this.dataSource$.pipe(
-      map(this.mapResponseToGridItems)
-    )
+    this.userService.isLoggedIn$.subscribe(res => {
+      if (res) {
+        this.groupingList$ = this.groupService.getGroupListWithProps(this.userService.userId);
+        this.dataSource$ = this.fetchGroupDetailAndFiles();
+        this.gridData$ = this.dataSource$.pipe(
+          map(this.mapResponseToGridItems)
+        )
+      }
+    })
   }
 
   onGroupSelected(group: any) {
@@ -179,19 +182,21 @@ export class AppComponent implements OnInit {
   }
 
   deleteFile(file: any, drawer: MatDrawer) {
+    drawer.close();
+    this.isLoading = true
     this.fileService.deleteFile({
       userId: this.userService.userId,
       taskGroupingId: this.selectedGroup?.id,
       userFileId: file.id
     }).pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
+        this.isLoading = false
         if (res.error) {
           this.openErrorAlert();
           return;
         }
 
         this.openSuccessAlert('File has been deleted');
-        drawer.close();
         this.selectedGroup$.next(this.selectedGroup);
       });
   }
