@@ -38,7 +38,6 @@ export class GroupingsService {
       return this.getMockGroupItems(taskGroupingId)
     }
 
-    // return of()
     const url = `${this.apiUrl}/GetTaskGroupingFiles`;
     return this.http.get(url, {
       headers: {

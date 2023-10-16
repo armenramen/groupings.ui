@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
   fetchGroupDetailAndFiles() {
     return this.selectedGroup$.pipe(
       tap(() => this.isLoading = true),
-      switchMap((group: any) => this.groupService.getGroupItems(this.userService.userId, group.id)),
+      switchMap((group: any) => this.groupService.getGroupItems(this.userService.userId, group.taskGroupingId)),
       tap(() => this.isLoading = false),
       share()
     );
@@ -199,6 +199,9 @@ export class AppComponent implements OnInit {
         this.openSuccessAlert('File has been deleted');
         this.selectedGroup$.next(this.selectedGroup);
       });
+  }
+  onLogoutClick() {
+    this.userService.logout();
   }
 
   private mapResponseToGridItems(res: TaskGroupFiles) {

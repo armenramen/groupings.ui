@@ -1,124 +1,147 @@
-<div class="task-grouping" *ngIf="isLoggedIn; else login">
-  <h2>Task Grouping</h2>
-
-  <div class="d-flex-row d-align-ctr">
-    <app-group-select
-      *ngIf="groupingList$ | async as groupingList"
-      [groupingList]="groupingList"
-      (groupSelected)="onGroupSelected($event)"
-    ></app-group-select>
-    <div class="group-actions-row">
-      <button
-        mat-button
-        class="add-group-btn"
-        *ngIf="selectedGroup"
-        (click)="openEditGroupModal()"
-      >
-        Edit Group
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-button *ngIf="selectedGroup" disabled>
-        Generate report
-        <mat-icon>trending_up</mat-icon>
-      </button>
-      <button
-        mat-raised-button
-        color="accent"
-        class="add-group-btn"
-        (click)="openAddGroupModal()"
-      >
-        New Group
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div class="grid-actions-row">
-    <button
-      mat-stroked-button
-      color="accent"
-      (click)="openUploadFileModal()"
-      [disabled]="!selectedGroup"
-    >
-      Upload New File
-      <mat-icon>upload</mat-icon>
-    </button>
-    <button
-      mat-stroked-button
-      [disabled]="selectedItems.length < 1"
-      *ngIf="viewMode === 'table'"
-    >
-      Delete
-      <mat-icon>delete</mat-icon>
-    </button>
-
+<ng-container *ngIf="isLoggedIn; else login">
+  <!-- APP TOOLBAR -->
+  <mat-toolbar color="accent">
+    <header>Task Nexus</header>
     <div class="right">
-      <mat-button-toggle-group
-        #viewGroup="matButtonToggleGroup"
-        class="view-toggle"
-        aria-label="Details View"
-        [(ngModel)]="viewMode"
+      <button
+        mat-icon-button
+        class="example-icon favorite-icon"
+        aria-label="Toggle Dark Mode"
       >
-        <mat-button-toggle value="icon" matTooltip="Icon View">
-          <mat-icon>grid_view</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="table" matTooltip="Table View">
-          <mat-icon>table_view</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+        <mat-icon>dark_mode</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Logout" (click)="onLogoutClick()">
+        <mat-icon>logout</mat-icon>
+      </button>
     </div>
-  </div>
+  </mat-toolbar>
 
-  <mat-drawer-container>
-    <mat-drawer-content>
-      <ng-container *ngIf="isLoading">
-        <mat-spinner class="spinner" color="accent"> </mat-spinner>
-      </ng-container>
-      <!-- ICON VIEW -->
-      <ng-container *ngIf="dataSource$ | async as data">
-        <app-group-icon-view
-          *ngIf="viewMode === 'icon' && !isLoading"
-          [dataSource]="data.files"
-          [selectedGroup]="selectedGroup"
-          (itemSelected)="onFileSelected($event, drawer)"
-        ></app-group-icon-view>
-      </ng-container>
-
-      <!-- TABLE VIEW -->
-      <ng-container *ngIf="gridData$ | async as data">
-        <app-group-table
-          *ngIf="viewMode === 'table' && !isLoading"
-          [dataSource]="data"
-          [selectedGroup]="selectedGroup"
-          (selectionChanged)="onSelectRow($event)"
-        ></app-group-table>
-      </ng-container>
-    </mat-drawer-content>
-
-    <mat-drawer #drawer mode="over" position="end" [disableClose]="isEditMode">
-      <div class="drawer-close">
+  <!-- APP-CONTENT -->
+  <div class="task-grouping">
+    <div class="d-flex-row d-align-ctr">
+      <app-group-select
+        *ngIf="groupingList$ | async as groupingList"
+        [groupingList]="groupingList"
+        (groupSelected)="onGroupSelected($event)"
+      ></app-group-select>
+      <div class="group-actions-row">
         <button
-          mat-icon-button
-          class="drawer-close"
-          (click)="closeDrawer(drawer)"
-          *ngIf="!isEditMode"
+          mat-button
+          class="add-group-btn"
+          *ngIf="selectedGroup"
+          (click)="openEditGroupModal()"
         >
-          <mat-icon>close</mat-icon>
+          Edit Group
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button *ngIf="selectedGroup" disabled>
+          Generate report
+          <mat-icon>trending_up</mat-icon>
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          class="add-group-btn"
+          (click)="openAddGroupModal()"
+        >
+          New Group
+          <mat-icon>add</mat-icon>
         </button>
       </div>
-      <app-file-details
-        [selectedItem]="selectedItem"
-        [isEditMode]="isEditMode"
-        [isLoading]="isEditLoading"
-        (downloadClicked)="downloadFile($event)"
-        (updateFile)="saveFile($event)"
-        (deleteClicked)="deleteFile($event, drawer)"
-      ></app-file-details>
-    </mat-drawer>
-  </mat-drawer-container>
-</div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="grid-actions-row">
+      <button
+        mat-stroked-button
+        color="accent"
+        (click)="openUploadFileModal()"
+        [disabled]="!selectedGroup"
+      >
+        Upload New File
+        <mat-icon>upload</mat-icon>
+      </button>
+      <button
+        mat-stroked-button
+        [disabled]="selectedItems.length < 1"
+        *ngIf="viewMode === 'table'"
+      >
+        Delete
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <div class="right">
+        <mat-button-toggle-group
+          #viewGroup="matButtonToggleGroup"
+          class="view-toggle"
+          aria-label="Details View"
+          [(ngModel)]="viewMode"
+        >
+          <mat-button-toggle value="icon" matTooltip="Icon View">
+            <mat-icon>grid_view</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="table" matTooltip="Table View">
+            <mat-icon>table_view</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+
+    <mat-drawer-container>
+      <mat-drawer-content>
+        <ng-container *ngIf="isLoading">
+          <mat-spinner class="spinner" color="accent"> </mat-spinner>
+        </ng-container>
+        <!-- ICON VIEW -->
+        <ng-container *ngIf="dataSource$ | async as data">
+          <app-group-icon-view
+            *ngIf="viewMode === 'icon' && !isLoading"
+            [dataSource]="data.files"
+            [selectedGroup]="selectedGroup"
+            (itemSelected)="onFileSelected($event, drawer)"
+          ></app-group-icon-view>
+        </ng-container>
+
+        <!-- TABLE VIEW -->
+        <ng-container *ngIf="gridData$ | async as data">
+          <app-group-table
+            *ngIf="viewMode === 'table' && !isLoading"
+            [dataSource]="data"
+            [selectedGroup]="selectedGroup"
+            (selectionChanged)="onSelectRow($event)"
+          ></app-group-table>
+        </ng-container>
+      </mat-drawer-content>
+
+      <mat-drawer
+        #drawer
+        mode="over"
+        position="end"
+        [disableClose]="isEditMode"
+      >
+        <div class="drawer-close">
+          <button
+            mat-icon-button
+            class="drawer-close"
+            (click)="closeDrawer(drawer)"
+            *ngIf="!isEditMode"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <app-file-details
+          [selectedItem]="selectedItem"
+          [(isEditMode)]="isEditMode"
+          [isLoading]="isEditLoading"
+          (downloadClicked)="downloadFile($event)"
+          (updateFile)="saveFile($event)"
+          (deleteClicked)="deleteFile($event, drawer)"
+        ></app-file-details>
+      </mat-drawer>
+    </mat-drawer-container>
+  </div>
+</ng-container>
 
 <!-- TEMPLATES -->
 

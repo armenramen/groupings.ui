@@ -9,23 +9,23 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   private readonly apiUrl = `${environment.apiUrl}/api/user`;
   private readonly useMock = environment.useMock;
-  private USER_ID = '';
-  private isLoggedIn = new BehaviorSubject(false);
+  private _isLoggedIn = new BehaviorSubject(!!this.userId);
 
   get userId() {
-    return this.USER_ID;
+    return localStorage.getItem('userId') || '';
   }
 
   get isLoggedIn$() {
-    return this.isLoggedIn.asObservable();
+    return this._isLoggedIn.asObservable();
   }
 
   constructor(private http: HttpClient) { }
 
   setUserId(id: string) {
-    this.USER_ID = id;
+    localStorage.setItem('userId', id);
+
     if (id) {
-      this.isLoggedIn.next(true);
+      this._isLoggedIn.next(true);
     }
   }
 
@@ -40,6 +40,11 @@ export class UserService {
     return this.http.get(url, {
       headers: { email }
     });
+  }
+
+  logout() {
+    this.setUserId('');
+    this._isLoggedIn.next(false);
   }
 
 }
