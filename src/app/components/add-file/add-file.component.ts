@@ -1,7 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FileInput } from 'ngx-material-file-input';
 import { catchError, filter, map, mergeMap, of, tap } from 'rxjs';
 import { FileService } from 'src/app/services/file.service';
 import { ProperyValueType } from 'src/app/utilities/models/response-models';
@@ -15,6 +14,7 @@ export class AddFileComponent implements OnInit {
   @Input() groupId = '';
   form!: FormGroup;
   isUploading = false;
+  isSaving = false;
   valueType = ProperyValueType;
 
   constructor(private fb: FormBuilder,
@@ -56,6 +56,7 @@ export class AddFileComponent implements OnInit {
   }
 
   saveFile({ id, detail, properties }: any) {
+    this.isSaving = true;
     this.fileService.saveUserFile({
       detail,
       properties,
@@ -65,6 +66,7 @@ export class AddFileComponent implements OnInit {
     })
       .pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
+        this.isSaving = false;
         if (res.error) {
           this.dialogRef.close({ type: 'error' });
           return;
@@ -75,11 +77,13 @@ export class AddFileComponent implements OnInit {
 
   get uploadFile$() {
     return this.fileFormControl.valueChanges.pipe(
-      filter((fileList: FileInput) => !!fileList),
-      map((fileList: FileInput) => {
+      tap(file => {
+        this.propFormArray.clear();
+      }),
+      filter(file => !!file),
+      map((file: File) => {
         this.isUploading = true;
         const formData = new FormData();
-        const file = fileList.files[0];
         formData.append(file.name, file);
         return formData;
       }),
@@ -93,7 +97,6 @@ export class AddFileComponent implements OnInit {
       tap((res: any) => {
         this.form.get('detail')?.setValue(res.detail);
         this.form.get('id')?.setValue(res.id);
-        console.log(this.form)
       }),
       tap(() => this.isUploading = false),
       catchError(err => {

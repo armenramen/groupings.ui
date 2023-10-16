@@ -10,6 +10,7 @@ import { FileProperty, GroupFile, GroupFileDetail, ProperyValueType } from 'src/
 export class FileDetailsComponent implements OnInit {
   @Input() selectedItem: GroupFile | null = null;
   @Input() isEditMode = false;
+  @Output() isEditModeChange = new EventEmitter<boolean>();
   @Input() isLoading = false;
   @Output() downloadClicked = new EventEmitter();
   @Output() deleteClicked = new EventEmitter();
@@ -37,15 +38,13 @@ export class FileDetailsComponent implements OnInit {
   }
 
   onEditClick() {
-    this.isEditMode = true;
-    console.log(this.selectedItem);
+    this.isEditModeChange.emit(true);
     this.patchFormValues(this.selectedItem);
-    console.log(this.editFormGroup);
   }
 
 
   onCancelEdit() {
-    this.isEditMode = false;
+    this.isEditModeChange.emit(false);
     this.propertiesFormArray.clear();
     this.editFormGroup.reset();
   }

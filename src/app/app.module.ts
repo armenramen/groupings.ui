@@ -30,7 +30,6 @@ import { Component } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GroupIconViewComponent } from './components/group-icon-view/group-icon-view.component';
 import { AddFileComponent } from './components/add-file/add-file.component';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { HttpClientModule } from '@angular/common/http';
 import { FileService } from './services/file.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -40,6 +39,8 @@ import { UserService } from './services/user.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FileDetailsComponent } from './components/file-details/file-details.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FileDetailsComponent } from './components/file-details/file-details.com
     GroupIconViewComponent,
     AddFileComponent,
     UserLoginComponent,
-    FileDetailsComponent
+    FileDetailsComponent,
+    FileUploadComponent
   ],
   imports: [
     FormsModule,
@@ -76,12 +78,12 @@ import { FileDetailsComponent } from './components/file-details/file-details.com
     MatTooltipModule,
     MatCardModule,
     MatGridListModule,
-    MaterialFileInputModule,
     HttpClientModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatToolbarModule
   ],
   providers: [
     GroupingsService,

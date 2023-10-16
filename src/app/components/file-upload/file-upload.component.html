@@ -1,0 +1,21 @@
+<div class="file-upload">
+  <div class="file-upload-zone" [class.file-upload-zone_active]="fileHover">
+    <h3>Drag and drop file here</h3>
+    <h3>or</h3>
+    <input type="file" id="fileDrag" />
+    <button mat-flat-button color="accent" (click)="label.click()">
+      <label for="fileDrag" #label> Browse file </label>
+    </button>
+  </div>
+</div>
+<div class="file-upload-item" *ngIf="file">
+  <p>{{ file.name }}</p>
+  <button
+    mat-icon-button
+    aria-label="Remove file"
+    color="warn"
+    (click)="removeFile()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

@@ -2,24 +2,10 @@
   <h2 mat-dialog-title>Upload new file</h2>
   <mat-dialog-content>
     <form class="new-file-form" [formGroup]="form">
-      <mat-form-field>
-        <mat-label>Select file</mat-label>
-        <ngx-mat-file-input
-          formControlName="file"
-          [multiple]="false"
-          #fileInput
-        ></ngx-mat-file-input>
-
-        <mat-icon matSuffix *ngIf="fileInput.empty">folder</mat-icon>
-        <button
-          mat-icon-button
-          matSuffix
-          *ngIf="!fileInput.empty"
-          (click)="fileInput.clear($event)"
-        >
-          <mat-icon>clear</mat-icon>
-        </button>
-      </mat-form-field>
+      <app-file-upload
+        class="new-file-form-upload"
+        formControlName="file"
+      ></app-file-upload>
       <mat-progress-bar
         mode="indeterminate"
         *ngIf="isUploading"
@@ -78,7 +64,7 @@
     <button
       mat-raised-button
       color="accent"
-      [disabled]="form.invalid"
+      [disabled]="form.invalid || isSaving || isUploading"
       (click)="saveFile(form.value)"
     >
       Save

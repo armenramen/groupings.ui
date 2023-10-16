@@ -1,0 +1,36 @@
+.file-upload {
+  &-zone {
+    width: 100%;
+    border: dashed 4px #979797;
+    border-radius: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &_active {
+      border: dashed 4px #673ab7;
+    }
+  }
+
+  &-item {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  input[type='file'] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  label:hover {
+    cursor: pointer;
+  }
+
+  button {
+    margin-bottom: 20px;
+  }
+}

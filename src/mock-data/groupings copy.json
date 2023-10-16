@@ -1,6 +1,6 @@
 [
     {
-        "id": "Interviews",
+        "taskGroupingId": "Interviews",
         "name": "Interviews",
         "properties": [
             {
@@ -26,7 +26,7 @@
         ]
     },
     {
-        "id": "2",
+        "taskGroupingId": "2",
         "name": "Direct Reports",
         "properties": [
             {
@@ -37,7 +37,7 @@
         ]
     },
     {
-        "id": "Progression",
+        "taskGroupingId": "Progression",
         "name": "Progression",
         "properties": [
             {
@@ -68,7 +68,7 @@
         ]
     },
     {
-        "id": "4",
+        "taskGroupingId": "4",
         "name": "Summer Outing Participants",
         "properties": [
             {
