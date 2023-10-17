@@ -158,6 +158,7 @@ export class AppComponent implements OnInit {
         if (res.error) {
           this.isEditMode = true;
           this.openErrorAlert();
+          console.log(res)
           return;
         }
 

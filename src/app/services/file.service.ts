@@ -56,8 +56,8 @@ export class FileService {
     }
     return this.http.post(url, body, {
       headers: {
-        userId,
-        taskGroupingId: detail.userTaskGroupingId,
+        userId: userId || '',
+        taskGroupingId: detail.userTaskGroupingId || '',
         userFileId: userFileId || '',
       }
     })
