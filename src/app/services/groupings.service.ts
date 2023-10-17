@@ -69,7 +69,7 @@ export class GroupingsService {
     return this.http.post(url, group, {
       headers: {
         userId,
-        taskGroupingId: group.id
+        taskGroupingId: group.groupId
       }
     })
   }

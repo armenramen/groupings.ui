@@ -54,7 +54,7 @@ export class EditGroupComponent implements OnInit {
   saveGroup(formValue: any) {
     this.groupService.updateGroup(this.data.userId, formValue)
       .pipe(catchError(error => of({ error })))
-      .subscribe(res => {
+      .subscribe((res: any) => {
         if (res.error) {
           this.dialogRef.close({ type: 'error' });
           return;
