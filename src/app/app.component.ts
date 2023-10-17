@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
   openUploadFileModal() {
     const dialogRef = this.dialog.open(AddFileComponent, {
       data: {
-        groupId: this.selectedGroup?.id,
+        groupId: this.selectedGroup?.taskGroupingId,
         userId: this.userService.userId
       },
       disableClose: true
@@ -168,7 +168,7 @@ export class AppComponent implements OnInit {
   downloadFile(file: GroupFile) {
     this.fileService.downloadFile({
       userId: this.userService.userId,
-      taskGroupingId: this.selectedGroup?.id,
+      taskGroupingId: this.selectedGroup?.taskGroupingId,
       userFileId: file.id
     }).pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
@@ -186,7 +186,7 @@ export class AppComponent implements OnInit {
     this.isLoading = true
     this.fileService.deleteFile({
       userId: this.userService.userId,
-      taskGroupingId: this.selectedGroup?.id,
+      taskGroupingId: this.selectedGroup?.taskGroupingId,
       userFileId: file.id
     }).pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {

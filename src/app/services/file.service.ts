@@ -10,9 +10,6 @@ import UPLOAD_RES from '../../mock-data/file-upload-response.json';
 export class FileService {
   private readonly apiUrl = `${environment.apiUrl}/api/File`;
   private readonly useMock = environment.useMock;
-  private readonly fileHeader = {
-    'Content-Type': 'multipart/form-data',
-  }
 
   constructor(private http: HttpClient) { }
 
@@ -39,7 +36,6 @@ export class FileService {
     const url = `${this.apiUrl}/UploadUserFile`;
     return this.http.post(url, file, {
       headers: {
-        ...this.fileHeader,
         userId,
         taskGroupingId,
         userFileId: userFileId || '',
@@ -56,11 +52,11 @@ export class FileService {
     const body = {
       id: userFileId,
       detail,
-      properties
+      recommendedProperties: properties
     }
     return this.http.post(url, body, {
       headers: {
-        userId,
+        id: userId,
         taskGroupingId: detail.userTaskGroupingId,
         userFileId: userFileId || '',
       }

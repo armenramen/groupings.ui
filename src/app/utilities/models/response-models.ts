@@ -1,5 +1,5 @@
 export interface TaskGrouping {
-  id: string,
+  taskGroupingId: string,
   name: string,
   properties: Array<{ name: string, type: string, id: string }>
 }

@@ -30,7 +30,7 @@ export class EditGroupComponent implements OnInit {
   ngOnInit() {
     this.group = this.data.group;
     this.formGroup = this.fb.group({
-      groupId: [this.group.id],
+      groupId: [this.group.taskGroupingId],
       groupName: [this.group?.name],
       properties: this.fb.array([])
     });
