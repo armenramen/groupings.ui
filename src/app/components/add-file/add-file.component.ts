@@ -91,18 +91,19 @@ export class AddFileComponent implements OnInit {
         return this.fileService.uploadUserFile({
           file: formData,
           userId: this.data.userId,
-          taskGroupingId: this.groupId,
-        });
+          taskGroupingId: this.data.groupId
+        }).pipe(catchError(err => {
+          console.log(err)
+          return of(null);
+        }));
       }),
       tap((res: any) => {
-        this.form.get('detail')?.setValue(res.detail);
-        this.form.get('id')?.setValue(res.id);
+        if (res) {
+          this.form.get('detail')?.setValue(res.detail);
+          this.form.get('id')?.setValue(res.id);
+        }
       }),
       tap(() => this.isUploading = false),
-      catchError(err => {
-        console.log(err)
-        return of(null);
-      })
     )
   }
 
