@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     useMock: false,
-    apiUrl: 'https://localhost:7059'
+    apiUrl: 'https://tax-nexus.eastasia.cloudapp.azure.com:7059'
 };

@@ -5,7 +5,7 @@
     "ng": "ng",
     "start:dev": "ng serve --port 4200 --configuration development",
     "start:mock": "ng serve --port 4200 --configuration mock",
-    "build": "ng build --base-href /groupings/",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
