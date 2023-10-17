@@ -154,13 +154,14 @@ export class AppComponent implements OnInit {
     }).pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
         this.isEditLoading = false;
-        this.isEditMode = false;
 
         if (res.error) {
+          this.isEditMode = true;
           this.openErrorAlert();
           return;
         }
 
+        this.isEditMode = false;
         this.openSuccessAlert('File successfully updated');
       })
   }
