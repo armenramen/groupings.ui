@@ -1,5 +1,9 @@
 .task-grouping {
-  margin: 50px 300px;
+  min-width: 800px;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
 
 .group-actions-row {
@@ -23,6 +27,10 @@
   }
 }
 
+.search {
+  margin: 20px 20px 0 20px;
+}
+
 .right {
   margin-left: auto;
 }
@@ -36,6 +44,19 @@ mat-drawer-container {
 
   mat-drawer-content {
     min-height: 60vh;
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+
+      mat-icon {
+        font-size: 50px;
+        height: 50px;
+        width: 50px;
+      }
+    }
   }
 
   mat-drawer {

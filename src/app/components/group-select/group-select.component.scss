@@ -1,24 +1,24 @@
 .menu {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    
-    &:hover {
-        cursor: pointer;
-    }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    .expand-icon {
-        font-size: 30px;
-    }
-    
-    h2 {
-        margin: 5px;
-        letter-spacing: 0.6px;
-        font-size: 40px;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 
-    &-item {
-        // padding-left: 20px;
-    }
+  .expand-icon {
+    font-size: 30px;
+  }
+
+  h2 {
+    margin: 5px;
+    letter-spacing: 0.6px;
+    font-size: 40px;
+    min-width: 20vw;
+    max-width: 30vw;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
-

@@ -1,4 +1,10 @@
 <div class="icon-grid">
+  <ng-container *ngIf="dataSource.length === 0">
+    <div class="icon-grid__empty">
+      <mat-icon>folder</mat-icon>
+      <p>No files found. Upload new file to get started.</p>
+    </div>
+  </ng-container>
   <div class="icon-grid-item" *ngFor="let item of dataSource">
     <mat-card
       [class.selected]="item.id === selectedItem?.id"
@@ -10,7 +16,7 @@
           [src]="getImage(item.detail)"
           [alt]="getFileName(item.detail)"
         />
-        <p>{{ getFileName(item.detail) }}</p>
+        <p class="icon-grid-item-name">{{ getFileName(item.detail) }}</p>
       </mat-card-content>
     </mat-card>
   </div>

@@ -1,25 +1,4 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-  <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox
-        (change)="$event ? toggleAllRows() : null"
-        [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()"
-        [aria-label]="checkboxLabel()"
-      >
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox
-        (change)="$event ? toggleRow(row) : null"
-        [checked]="selection.isSelected(row)"
-        [aria-label]="checkboxLabel(row)"
-      >
-      </mat-checkbox>
-    </td>
-  </ng-container>
-
+<table *ngIf="dataSource.length" mat-table [dataSource]="dataSource">
   <!-- Details Columns -->
   <ng-container
     *ngFor="let column of columns"
@@ -34,15 +13,26 @@
   </ng-container>
 
   <!-- Download Column -->
-  <ng-container matColumnDef="download">
+  <!-- <ng-container matColumnDef="download">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let row">
       <button mat-icon-button color="accent">
         <mat-icon>download</mat-icon>
       </button>
     </td>
-  </ng-container>
+  </ng-container> -->
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="toggleRow(row)"
+    class="item-row"
+  ></tr>
 </table>
+<ng-container *ngIf="dataSource.length === 0">
+  <div class="table-grid__empty">
+    <mat-icon>folder</mat-icon>
+    <p>No files found. Upload new file to get started.</p>
+  </div>
+</ng-container>

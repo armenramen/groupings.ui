@@ -35,14 +35,16 @@ export class AddFileComponent implements OnInit {
     this.buildForm();
 
     this.uploadFile$.subscribe((res: any) => {
-      res.recommendedProperties.forEach((prop: any) => {
-        this.propFormArray.push(this.fb.group({
-          id: [prop.id],
-          name: [{ value: prop.name, disabled: true }],
-          value: [prop.recommended, [Validators.required]],
-          type: [prop.type]
-        }));
-      });
+      if (res) {
+        res.recommendedProperties.forEach((prop: any) => {
+          this.propFormArray.push(this.fb.group({
+            id: [prop.id],
+            name: [{ value: prop.name, disabled: true }],
+            value: [prop.recommended, [Validators.required]],
+            type: [prop.type]
+          }));
+        });
+      }
     });
   }
 
@@ -57,6 +59,7 @@ export class AddFileComponent implements OnInit {
 
   saveFile({ id, detail, properties }: any) {
     this.isSaving = true;
+    detail.userTaskGroupingId = detail.userTaskGroupingId || this.data.groupId;
     this.fileService.saveUserFile({
       detail,
       properties,
@@ -84,7 +87,7 @@ export class AddFileComponent implements OnInit {
       map((file: File) => {
         this.isUploading = true;
         const formData = new FormData();
-        formData.append(file.name, file);
+        formData.append('file', file);
         return formData;
       }),
       mergeMap((formData: FormData) => {

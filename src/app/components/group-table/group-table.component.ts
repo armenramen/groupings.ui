@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TaskGrouping } from 'src/app/utilities/models/response-models';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ProperyValueType, TaskGroupFiles, TaskGrouping } from 'src/app/utilities/models/response-models';
 
 @Component({
   selector: 'app-group-table',
@@ -16,9 +16,8 @@ export class GroupTableComponent implements OnInit {
 
   get displayedColumns() {
     return [
-      'select',
       ...this.columns.map(c => c.columnDef),
-      'download'
+      // 'download'
     ];
   }
 
@@ -42,44 +41,14 @@ export class GroupTableComponent implements OnInit {
     return cols;
   }
 
-
-
   constructor() { }
 
   ngOnInit() {
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.length;
-    return numSelected === numRows;
-  }
-
   toggleRow(row: any) {
     this.selection.toggle(row);
-    this.selectionChanged.emit(this.selection.selected);
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      this.selectionChanged.emit(this.selection.selected);
-      return;
-    }
-
-    this.selection.select(...this.dataSource);
-    this.selectionChanged.emit(this.selection.selected);
-
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: any): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    this.selectionChanged.emit(row);
   }
 
 }

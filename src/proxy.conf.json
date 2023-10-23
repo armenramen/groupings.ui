@@ -1,6 +1,7 @@
 {
     "/api": {
-        "target": "https://localhost:7059",
-        "secure": false
+        "target": "http://tax-nexus.eastasia.cloudapp.azure.com:7059/api",
+        "secure": false,
+        "changeOrigin": true
     }
 }

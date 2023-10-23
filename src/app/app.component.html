@@ -62,15 +62,6 @@
         Upload New File
         <mat-icon>upload</mat-icon>
       </button>
-      <button
-        mat-stroked-button
-        [disabled]="selectedItems.length < 1"
-        *ngIf="viewMode === 'table'"
-      >
-        Delete
-        <mat-icon>delete</mat-icon>
-      </button>
-
       <div class="right">
         <mat-button-toggle-group
           #viewGroup="matButtonToggleGroup"
@@ -90,6 +81,38 @@
 
     <mat-drawer-container>
       <mat-drawer-content>
+        <!-- SEARCH FIELD -->
+        <!-- <mat-form-field
+          class="search"
+          appearance="outline"
+          *ngIf="groupFiles.length"
+        >
+          <input
+            matInput
+            type="text"
+            [ngModel]="searchValue"
+            (ngModelChange)="onSearchChange(searchValue)"
+            placeholder="Search"
+          />
+          <button
+            *ngIf="searchValue"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchValue = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field> -->
+        <!-- END of SEARCH FIELD -->
+        <ng-container *ngIf="!selectedGroup">
+          <div class="empty-state">
+            <p>
+              <mat-icon>file_open</mat-icon>
+            </p>
+            <p>Select a group and files will be displayed here</p>
+          </div>
+        </ng-container>
         <ng-container *ngIf="isLoading">
           <mat-spinner class="spinner" color="accent"> </mat-spinner>
         </ng-container>
@@ -109,7 +132,7 @@
             *ngIf="viewMode === 'table' && !isLoading"
             [dataSource]="data"
             [selectedGroup]="selectedGroup"
-            (selectionChanged)="onSelectRow($event)"
+            (selectionChanged)="onSelectRow($event, drawer)"
           ></app-group-table>
         </ng-container>
       </mat-drawer-content>

@@ -1,0 +1,19 @@
+.table-grid__empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  mat-icon {
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+  }
+}
+
+.item-row:hover {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+}

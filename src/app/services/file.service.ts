@@ -84,7 +84,7 @@ export class FileService {
     }
 
     const url = `${this.apiUrl}/DeleteUserFile`;
-    return this.http.delete(url, {
+    return this.http.post(url, {
       headers: {
         userId,
         taskGroupingId,

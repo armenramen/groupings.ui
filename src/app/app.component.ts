@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
   isEditLoading = false;
   valueType = ProperyValueType;
   viewMode = 'icon';
+  groupFiles: GroupFile[] = [];
+  searchValue = '';
 
   get isLoggedIn() {
     return this.userService.userId !== '' && this.userService.userId !== null;
@@ -64,6 +66,12 @@ export class AppComponent implements OnInit {
     drawer.toggle();
   }
 
+  onSelectRow(selection: any, drawer: MatDrawer) {
+    const file = this.groupFiles.find(f => f.id === selection.id);
+    this.onFileSelected(file, drawer);
+  }
+
+
   openAddGroupModal() {
     const dialogRef = this.dialog.open(AddGroupComponent, {
       disableClose: true
@@ -91,10 +99,11 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed()
       .pipe(filter(e => e?.type))
       .subscribe(result => {
+        this.selectedGroup$.next(this.selectedGroup);
+
         if (result.type === 'success') {
           this.openSuccessAlert('File added successfully');
           // Reload currently selected group
-          this.selectedGroup$.next(this.selectedGroup);
         } else {
           this.openErrorAlert();
         }
@@ -126,15 +135,12 @@ export class AppComponent implements OnInit {
 
   }
 
-  onSelectRow(selection: any) {
-    this.selectedItems = selection
-  }
-
   fetchGroupDetailAndFiles() {
     return this.selectedGroup$.pipe(
       tap(() => this.isLoading = true),
       switchMap((group: any) => this.groupService.getGroupItems(this.userService.userId, group.taskGroupingId)),
       tap(() => this.isLoading = false),
+      tap(res => this.groupFiles = res['files']),
       share()
     );
   }
@@ -146,6 +152,7 @@ export class AppComponent implements OnInit {
 
   saveFile(formValue: any) {
     this.isEditLoading = true;
+    formValue.detail.userTaskGroupingId = formValue.detail.userTaskGroupingId || this.selectedGroup?.taskGroupingId;
     this.fileService.saveUserFile({
       userId: this.userService.userId,
       detail: formValue.detail,
@@ -202,6 +209,10 @@ export class AppComponent implements OnInit {
         this.selectedGroup$.next(this.selectedGroup);
       });
   }
+
+  onSearchChange(value: string) {
+  }
+
   onLogoutClick() {
     this.userService.logout();
   }
