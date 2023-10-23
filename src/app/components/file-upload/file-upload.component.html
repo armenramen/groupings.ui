@@ -2,9 +2,9 @@
   <div class="file-upload-zone" [class.file-upload-zone_active]="fileHover">
     <h3>Drag and drop file here</h3>
     <h3>or</h3>
-    <input type="file" id="fileDrag" />
-    <button mat-flat-button color="accent" (click)="label.click()">
-      <label for="fileDrag" #label> Browse file </label>
+    <input #input type="file" id="fileDrag" aria-labelledby="inputLabel" />
+    <button mat-flat-button color="accent" (click)="input.click()">
+      <label id="inputLabel"> Browse file </label>
     </button>
   </div>
 </div>
