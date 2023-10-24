@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, of } from 'rxjs';
+import { catchError, delay, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import UPLOAD_RES from '../../mock-data/file-upload-response.json';
 
@@ -25,7 +25,7 @@ export class FileService {
         taskGroupingId,
         userFileId,
       }
-    })
+    }).pipe(catchError(this.logError))
   }
 
   uploadUserFile({ file, userId, taskGroupingId, userFileId }: any) {
@@ -40,7 +40,7 @@ export class FileService {
         taskGroupingId,
         userFileId: userFileId || '',
       }
-    })
+    }).pipe(catchError(this.logError))
   }
 
   saveUserFile({ userId, detail, userFileId, properties }: any) {
@@ -60,7 +60,7 @@ export class FileService {
         taskGroupingId: detail.userTaskGroupingId || '',
         userFileId: userFileId || '',
       }
-    })
+    }).pipe(catchError(this.logError))
   }
 
   downloadFile({ userId, taskGroupingId, userFileId }: any) {
@@ -75,7 +75,7 @@ export class FileService {
         taskGroupingId,
         userFileId: userFileId,
       }
-    });
+    }).pipe(catchError(this.logError));
   }
 
   deleteFile({ userId, taskGroupingId, userFileId }: any) {
@@ -90,7 +90,7 @@ export class FileService {
         taskGroupingId,
         userFileId: userFileId,
       }
-    });
+    }).pipe(catchError(this.logError));
   }
 
   private getMockFileUploadResponse() {
@@ -103,6 +103,10 @@ export class FileService {
 
   private mockSaveFile() {
     return of(UPLOAD_RES).pipe(delay(1000));
+  }
+  private logError(err: any) {
+    console.log(err)
+    return of(err);
   }
 
 }

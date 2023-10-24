@@ -3,7 +3,7 @@ import GROUPS from '../../mock-data/groupings.json';
 import GROUPS_WITH_PROPS from '../../mock-data/groupings copy.json';
 import MOCK_INTERVIEWS from '../../mock-data/interviews.json';
 import MOCK_PROGRESSIONS from '../../mock-data/progressions.json';
-import { Observable, delay, of } from 'rxjs';
+import { Observable, catchError, delay, of } from 'rxjs';
 import { TaskGroupFiles } from '../utilities/models/response-models';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -29,7 +29,7 @@ export class GroupingsService {
     const url = `${this.apiUrl}/GetTaskGrouping`;
     return this.http.get(url, {
       headers: { userId }
-    })
+    }).pipe(catchError(this.logError))
 
   }
 
@@ -44,7 +44,7 @@ export class GroupingsService {
         userId,
         taskGroupingId
       }
-    })
+    }).pipe(catchError(this.logError))
   }
 
   getGroupListWithProps(userId: string) {
@@ -57,7 +57,7 @@ export class GroupingsService {
       headers: {
         userId
       }
-    })
+    }).pipe(catchError(this.logError))
   }
 
   updateGroup(userId: string, group: any) {
@@ -71,7 +71,7 @@ export class GroupingsService {
         userId,
         taskGroupingId: group.groupId
       }
-    })
+    }).pipe(catchError(this.logError))
   }
 
 
@@ -98,6 +98,11 @@ export class GroupingsService {
 
   private mockSaveGroup(group: any) {
     return of(group).pipe(delay(600));
+  }
+
+  private logError(err: any) {
+    console.log(err)
+    return of(err);
   }
 
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, of } from 'rxjs';
+import { BehaviorSubject, catchError, delay, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -39,12 +39,17 @@ export class UserService {
     const url = `${this.apiUrl}/login`;
     return this.http.get(url, {
       headers: { email }
-    });
+    }).pipe(catchError(this.logError));
   }
 
   logout() {
     this.setUserId('');
     this._isLoggedIn.next(false);
+  }
+
+  private logError(err: any) {
+    console.log(err)
+    return of(err);
   }
 
 }
