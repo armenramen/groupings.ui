@@ -7,17 +7,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class GroupSelectComponent implements OnInit {
   @Input() groupingList: any[] = [];
+  @Input() selectedGroup: any;
   @Output() groupSelected = new EventEmitter();
-  grouping = 'Select group'
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  selectGroup(group: any) {
-    this.grouping = group.name
+  onSelectGroup(group: any) {
+    this.selectedGroup = group;
     this.groupSelected.emit(group);
+  }
+
+  groupId(index: number, group: any) {
+    return group.id;
   }
 
 }

@@ -1,11 +1,16 @@
 <ng-container>
-    <div matRipple [matMenuTriggerFor]="menu" class="menu">
-      <h2 mat-button >{{grouping}}</h2>
-      <mat-icon class="expand-icon">expand_more</mat-icon>
-    </div>
+  <div matRipple [matMenuTriggerFor]="menu" class="menu">
+    <h2 mat-button>{{ selectedGroup?.name || 'Select group' }}</h2>
+    <mat-icon class="expand-icon">expand_more</mat-icon>
+  </div>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item class="menu-item" 
-    (click)="selectGroup(group)" 
-    *ngFor="let group of groupingList">{{group.name}}</button>
+    <button
+      mat-menu-item
+      class="menu-item"
+      (click)="onSelectGroup(group)"
+      *ngFor="let group of groupingList"
+    >
+      {{ group.name }}
+    </button>
   </mat-menu>
 </ng-container>

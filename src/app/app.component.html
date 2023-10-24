@@ -20,8 +20,9 @@
   <div class="task-grouping">
     <div class="d-flex-row d-align-ctr">
       <app-group-select
-        *ngIf="groupingList$ | async as groupingList"
-        [groupingList]="groupingList"
+        *ngIf="groupList?.length"
+        [groupingList]="groupList"
+        [selectedGroup]="selectedGroup"
         (groupSelected)="onGroupSelected($event)"
       ></app-group-select>
       <div class="group-actions-row">

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, catchError, concatMap, filter, finalize, map, mergeMap, of, share, startWith, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, concatMap, filter, finalize, map, mergeMap, of, share, startWith, switchMap, take, tap } from 'rxjs';
 import { GroupingsService } from './services/groupings.service';
 import { GroupFile, ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -18,6 +18,8 @@ import { FileService } from './services/file.service';
 })
 export class AppComponent implements OnInit {
   groupingList$!: Observable<any>;
+  getGroupingList$ = new BehaviorSubject<boolean>(false);
+  groupList!: any[];
   dataSource$!: Observable<any>;
   gridData$!: Observable<any>;
   selectedGroup$ = new Subject();
@@ -47,13 +49,20 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.userService.isLoggedIn$.subscribe(res => {
       if (res) {
-        this.groupingList$ = this.groupService.getGroupListWithProps(this.userService.userId);
+        this.getGroupingList$.next(true);
         this.dataSource$ = this.fetchGroupDetailAndFiles();
         this.gridData$ = this.dataSource$.pipe(
           map(this.mapResponseToGridItems)
         )
       }
-    })
+    });
+
+    this.getGroupingList$.pipe(
+      mergeMap(() => {
+        return this.groupService.getGroupListWithProps(this.userService.userId)
+      })).subscribe(list => {
+        this.groupList = [...list]
+      })
   }
 
   onGroupSelected(group: any) {
@@ -74,14 +83,28 @@ export class AppComponent implements OnInit {
 
   openAddGroupModal() {
     const dialogRef = this.dialog.open(AddGroupComponent, {
+      data: {
+        userId: this.userService.userId
+      },
       disableClose: true
 
     });
+    this.newGroupModalClose(dialogRef)
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result:`, result);
+  private newGroupModalClose(dialogRef: MatDialogRef<any>) {
+    dialogRef.afterClosed()
+      .pipe(filter(e => e?.type))
+      .subscribe(result => {
+        this.isLoading = false;
+        if (result.type === 'success') {
+          this.openSuccessAlert('Group added successfully');
+          // Reload currently selected group
+        } else {
+          this.openErrorAlert();
+        }
 
-    });
+      });
   }
 
   openUploadFileModal() {
@@ -95,15 +118,15 @@ export class AppComponent implements OnInit {
     this.handleUploadModalClose(dialogRef);
   }
 
-  handleUploadModalClose(dialogRef: MatDialogRef<any>) {
+  private handleUploadModalClose(dialogRef: MatDialogRef<any>) {
     dialogRef.afterClosed()
       .pipe(filter(e => e?.type))
       .subscribe(result => {
+        // Reload currently selected group
         this.selectedGroup$.next(this.selectedGroup);
 
         if (result.type === 'success') {
           this.openSuccessAlert('File added successfully');
-          // Reload currently selected group
         } else {
           this.openErrorAlert();
         }
@@ -114,8 +137,8 @@ export class AppComponent implements OnInit {
   openEditGroupModal() {
     const dialogRef = this.dialog.open(EditGroupComponent, {
       data: {
-        group: this.selectedGroup,
-        userId: this.userService.userId
+        userId: this.userService.userId,
+        group: this.selectedGroup
       },
       disableClose: true
     });
@@ -128,6 +151,10 @@ export class AppComponent implements OnInit {
       .subscribe(result => {
         if (result.type === 'success') {
           this.openSuccessAlert('Group updated successfully');
+          this.getGroupingList$.next(true);
+          console.log(result.value)
+          // this.selectedGroup$.next(result.value)
+          this.selectedGroup = result.value
         } else {
           this.openErrorAlert();
         }
@@ -218,7 +245,7 @@ export class AppComponent implements OnInit {
   }
 
   private mapResponseToGridItems(res: TaskGroupFiles) {
-    return res.files.map(({ id, properties, detail }) => {
+    return res?.files?.map(({ id, properties, detail }) => {
       // Transform details array into an object
       const obj: any = {};
       properties.forEach(d => {
@@ -249,6 +276,5 @@ export class AppComponent implements OnInit {
       duration: 2000
     })
   }
-
 
 }

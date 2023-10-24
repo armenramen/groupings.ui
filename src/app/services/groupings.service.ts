@@ -7,7 +7,6 @@ import { Observable, catchError, delay, of } from 'rxjs';
 import { TaskGroupFiles } from '../utilities/models/response-models';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { group } from '@angular/animations';
 
 
 @Injectable({
@@ -60,16 +59,16 @@ export class GroupingsService {
     }).pipe(catchError(this.logError))
   }
 
-  updateGroup(userId: string, group: any) {
+  saveGroup(userId: string, group: any) {
     if (this.useMock) {
       return this.mockSaveGroup(group);
     }
 
-    const url = `${this.apiUrl}/SaveTaskGroupingProperty`;
+    const url = `${this.apiUrl}/SaveTaskGrouping`;
     return this.http.post(url, group, {
       headers: {
         userId,
-        taskGroupingId: group.groupId
+        taskGroupingId: group.taskGroupingId || ''
       }
     }).pipe(catchError(this.logError))
   }
