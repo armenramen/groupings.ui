@@ -30,8 +30,8 @@ export class EditGroupComponent implements OnInit {
   ngOnInit() {
     this.group = this.data.group;
     this.formGroup = this.fb.group({
-      groupId: [this.group.taskGroupingId],
-      groupName: [this.group?.name],
+      taskGroupingId: [this.group.taskGroupingId],
+      name: [this.group?.name],
       properties: this.fb.array([])
     });
     this.group?.properties.forEach((prop) => {
@@ -52,15 +52,15 @@ export class EditGroupComponent implements OnInit {
   }
 
   saveGroup(formValue: any) {
-    this.groupService.updateGroup(this.data.userId, formValue)
+    this.groupService.saveGroup(this.data.userId, formValue)
       .pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
-        if (res.error || !res.isSuccessful) {
+        if (res.error || !res.isSuccesful) {
           this.dialogRef.close({ type: 'error' });
           return;
         }
 
-        this.dialogRef.close({ type: 'success', value: res });
+        this.dialogRef.close({ type: 'success', value: formValue });
       })
   }
 
