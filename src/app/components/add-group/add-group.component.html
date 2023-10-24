@@ -7,14 +7,14 @@
         matInput
         placeholder="Enter group name"
         required
-        formControlName="groupName"
+        formControlName="name"
       />
     </mat-form-field>
 
     <mat-divider></mat-divider>
 
     <h3>Details</h3>
-    <ng-container formArrayName="details">
+    <ng-container formArrayName="properties">
       <div
         class="group-form-prop"
         *ngFor="let detailForm of detailsForms.controls; let i = index"
@@ -56,7 +56,12 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="groupForm.value" color="accent">
+  <button
+    mat-raised-button
+    [mat-dialog-close]="groupForm.value"
+    color="accent"
+    (click)="saveNewGroup()"
+  >
     Submit
   </button>
 </mat-dialog-actions>
