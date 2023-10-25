@@ -12,10 +12,12 @@
         <span *ngIf="prop?.type === valueType.String"> {{ prop?.value }}</span>
         <span
           class="state-badge"
-          [ngClass]="prop.value ? 'state-badge-yes' : 'state-badge-no '"
+          [ngClass]="
+            prop.value === 'true' ? 'state-badge-yes' : 'state-badge-no '
+          "
           *ngIf="prop?.type === valueType.Boolean"
         >
-          {{ prop.value ? 'Yes' : 'No' }}
+          {{ prop.value === 'true' ? 'Yes' : 'No' }}
         </span>
         <span *ngIf="prop?.type === valueType.Date">
           {{ prop.value | date : 'MM/dd/yyyy hh:mm a' }}
@@ -61,9 +63,12 @@
             <input type="text" matInput formControlName="value" />
             <mat-label>{{ propForm.get('name')?.value }}</mat-label>
           </mat-form-field>
+          ischecked? {{ propForm.get('value')?.value === 'true' }}
           <mat-checkbox
             *ngIf="propForm.get('type')?.value === valueType.Boolean"
             formControlName="value"
+            [checked]="propForm.get('value')?.value !== 'false'"
+            (change)="onCheckValueChange(propForm)"
             >{{ propForm.get('name')?.value }}</mat-checkbox
           >
           <mat-form-field

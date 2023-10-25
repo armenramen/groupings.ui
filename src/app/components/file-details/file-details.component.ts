@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileProperty, GroupFile, GroupFileDetail, ProperyValueType } from 'src/app/utilities/models/response-models';
 
 @Component({
@@ -42,6 +42,11 @@ export class FileDetailsComponent implements OnInit {
     this.patchFormValues(this.selectedItem);
   }
 
+  onCheckValueChange(form: AbstractControl) {
+    const control = form.get('value');
+    control?.setValue(control.value.toString());
+  }
+
 
   onCancelEdit() {
     this.isEditModeChange.emit(false);
@@ -60,6 +65,10 @@ export class FileDetailsComponent implements OnInit {
     });
 
     val.properties.forEach((prop: FileProperty) => {
+      if (prop.type === this.valueType.Boolean) {
+        prop.value = prop.value === 'true';
+      }
+
       this.propertiesFormArray.push(this.fb.group({
         id: [prop.id],
         name: [prop.name],
@@ -67,6 +76,10 @@ export class FileDetailsComponent implements OnInit {
         type: [prop.type]
       }))
     });
+  }
+
+  isChecked(propForm: AbstractControl) {
+    return propForm.get('value')?.value === 'true'
   }
 
   private buildForm() {

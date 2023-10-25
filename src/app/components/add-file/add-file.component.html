@@ -34,6 +34,8 @@
             <mat-checkbox
               *ngIf="propForm.get('type')?.value === valueType.Boolean"
               formControlName="value"
+              (change)="onCheckValueChange(propForm)"
+              [checked]="propForm.get('value')?.value === 'true' || false"
               >{{ propForm.get('name')?.value }}</mat-checkbox
             >
             <mat-form-field

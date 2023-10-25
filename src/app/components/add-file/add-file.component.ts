@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, filter, map, mergeMap, of, tap } from 'rxjs';
 import { FileService } from 'src/app/services/file.service';
@@ -76,6 +76,11 @@ export class AddFileComponent implements OnInit {
         }
         this.dialogRef.close({ type: 'success', value: res });
       })
+  }
+
+  onCheckValueChange(form: AbstractControl) {
+    const control = form.get('value');
+    control?.setValue(control.value.toString());
   }
 
   get uploadFile$() {
