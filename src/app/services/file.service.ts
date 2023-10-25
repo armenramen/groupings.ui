@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, delay, of } from 'rxjs';
+import { catchError, delay, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import UPLOAD_RES from '../../mock-data/file-upload-response.json';
 
@@ -74,7 +74,9 @@ export class FileService {
         userId,
         taskGroupingId,
         userFileId: userFileId,
-      }
+      },
+      responseType: 'arraybuffer',
+      observe: 'response'
     }).pipe(catchError(this.logError));
   }
 

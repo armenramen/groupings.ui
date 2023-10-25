@@ -179,15 +179,17 @@ export class AppComponent implements OnInit {
 
   saveFile(formValue: any) {
     this.isEditLoading = true;
-    formValue.detail.userTaskGroupingId = formValue.detail.userTaskGroupingId || this.selectedGroup?.taskGroupingId;
+    const taskGroupingId = this.selectedGroup?.taskGroupingId || '';
     this.fileService.saveUserFile({
       userId: this.userService.userId,
       detail: formValue.detail,
       userFileId: formValue.id,
-      properties: formValue.properties
+      properties: formValue.properties,
+      taskGroupingId: taskGroupingId
     }).pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
         this.isEditLoading = false;
+        this.selectedGroup$.next(this.selectedGroup);
 
         if (res.error) {
           this.isEditMode = true;
@@ -212,7 +214,7 @@ export class AppComponent implements OnInit {
           this.openErrorAlert();
           return;
         }
-
+        this.onFileDownload(res);
         this.openSuccessAlert('File is being downloaded.')
       });
   }
@@ -245,7 +247,9 @@ export class AppComponent implements OnInit {
     this.groupService.downloadReport(
       this.userService.userId,
       groupId
-    ).subscribe()
+    ).subscribe(res => {
+      this.onFileDownload(res);
+    })
 
   }
 
@@ -284,6 +288,24 @@ export class AppComponent implements OnInit {
     this.snackBar.open(message, undefined, {
       duration: 2000
     })
+  }
+
+  private onFileDownload(response: any) {
+    const blob = new Blob([response.body], { type: response.headers.get('content-type') });
+    const fileName = response.headers.get('Content-Disposition')
+      .split(';')
+      .find((e: string) => e.includes('filename='))
+      .replace('filename=', '').trim();
+    const anchorElement = document.createElement('a');
+    const file = new File([blob], fileName, { type: response.headers.get('content-type') });
+    const url = window.URL.createObjectURL(file);
+
+    anchorElement.href = url;
+    anchorElement.download = fileName;
+    console.log(anchorElement.download);
+    console.log(fileName)
+    anchorElement.click();
+    window.URL.revokeObjectURL(url);
   }
 
 }

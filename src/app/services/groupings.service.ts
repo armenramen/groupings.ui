@@ -83,21 +83,7 @@ export class GroupingsService {
       },
       responseType: 'arraybuffer',
       observe: 'response'
-    }).pipe(tap((response: any) => {
-      const blob = new Blob([response.body], { type: response.headers.get('content-type') });
-      const fileName = response.headers.get('Content-Disposition')
-        .split(';')
-        .find((e: string) => e.includes('filename='))
-        .replace('filename=', '');
-      const anchorElement = document.createElement('a');
-      const file = new File([blob], fileName, { type: response.headers.get('content-type') });
-      const url = window.URL.createObjectURL(file);
-
-      anchorElement.href = url;
-      anchorElement.download = fileName;
-      anchorElement.click();
-      window.URL.revokeObjectURL(url);
-    }));
+    });
   }
 
 

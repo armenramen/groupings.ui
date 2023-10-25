@@ -59,12 +59,12 @@ export class AddFileComponent implements OnInit {
 
   saveFile({ id, detail, properties }: any) {
     this.isSaving = true;
-    detail.userTaskGroupingId = this.data.groupId;
     this.fileService.saveUserFile({
       detail,
       properties,
       userFileId: id,
       userId: this.data.userId,
+      taskGroupingId: this.data.groupId
 
     })
       .pipe(catchError(error => of({ error })))
