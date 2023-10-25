@@ -43,7 +43,7 @@ export class FileService {
     }).pipe(catchError(this.logError))
   }
 
-  saveUserFile({ userId, detail, userFileId, properties }: any) {
+  saveUserFile({ userId, taskGroupingId, detail, userFileId, properties }: any) {
     if (this.useMock) {
       return this.mockSaveFile();
     }
@@ -57,7 +57,7 @@ export class FileService {
     return this.http.post(url, body, {
       headers: {
         userId: userId || '',
-        taskGroupingId: detail.userTaskGroupingId || '',
+        taskGroupingId: taskGroupingId || '',
         userFileId: userFileId || '',
       }
     }).pipe(catchError(this.logError))

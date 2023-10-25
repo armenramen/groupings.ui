@@ -3,7 +3,7 @@ import GROUPS from '../../mock-data/groupings.json';
 import GROUPS_WITH_PROPS from '../../mock-data/groupings copy.json';
 import MOCK_INTERVIEWS from '../../mock-data/interviews.json';
 import MOCK_PROGRESSIONS from '../../mock-data/progressions.json';
-import { Observable, catchError, delay, of } from 'rxjs';
+import { Observable, catchError, delay, map, of } from 'rxjs';
 import { TaskGroupFiles } from '../utilities/models/response-models';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GroupingsService {
   readonly apiUrl = `${environment.apiUrl}/api/TaskGrouping`;
+  readonly reportUrl = `${environment.apiUrl}/api/Report`;
   readonly useMock = environment.useMock;
 
   constructor(private http: HttpClient) {
@@ -71,6 +72,27 @@ export class GroupingsService {
         taskGroupingId: group.taskGroupingId || ''
       }
     }).pipe(catchError(this.logError))
+  }
+
+  downloadReport(userId: string, taskGroupingId: string) {
+    console.log(userId)
+    const url = `${this.reportUrl}/GenerateReport`
+    return this.http.get(url, {
+      headers: {
+        userId,
+        taskGroupingId,
+        // Accept: ''
+      },
+      responseType: 'arraybuffer',
+      observe: 'response'
+    }).pipe(map((report: any) => {
+      const data = new Blob([report], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const a = document.createElement('a');
+      const fileName = 'test'
+      const file = new File([data], fileName, { type: report.headers.get('content-type') });
+      const url = window.URL.createObjectURL(data);
+      window.open(url);
+    }));
   }
 
 

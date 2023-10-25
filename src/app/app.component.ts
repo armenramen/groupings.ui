@@ -240,6 +240,15 @@ export class AppComponent implements OnInit {
   onSearchChange(value: string) {
   }
 
+  generateReport() {
+    const groupId = this.selectedGroup?.taskGroupingId || ''
+    this.groupService.downloadReport(
+      this.userService.userId,
+      groupId
+    ).subscribe()
+
+  }
+
   onLogoutClick() {
     this.userService.logout();
   }

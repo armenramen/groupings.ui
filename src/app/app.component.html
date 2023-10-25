@@ -35,7 +35,7 @@
           Edit Group
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-button *ngIf="selectedGroup" disabled>
+        <button mat-button *ngIf="selectedGroup" (click)="generateReport()">
           Generate report
           <mat-icon>trending_up</mat-icon>
         </button>

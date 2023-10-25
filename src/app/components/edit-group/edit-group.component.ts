@@ -43,7 +43,7 @@ export class EditGroupComponent implements OnInit {
     this.detailsForms.push(this.fb.group({
       name: [val?.name || '', [Validators.required]],
       type: [val?.type || ProperyValueType.String, Validators.required],
-      id: [val?.id || '']
+      id: [val?.id || null]
     }))
   }
 
