@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, of } from 'rxjs';
 import { GroupingsService } from 'src/app/services/groupings.service';
+import { ProperyValueType } from 'src/app/utilities/models/response-models';
 
 @Component({
   selector: 'app-add-group',
@@ -34,8 +35,9 @@ export class AddGroupComponent implements OnInit {
 
   addProperty() {
     this.detailsForms.push(this.formBuilder.group({
-      propertyName: ['', [Validators.required]],
-      type: ['text', Validators.required]
+      name: ['', [Validators.required]],
+      type: [ProperyValueType.String, Validators.required],
+      id: [null]
     }))
   }
 
@@ -72,7 +74,6 @@ export class AddGroupComponent implements OnInit {
       .subscribe((res: any) => {
         this.isSaving = false;
         if (res.error || !res.isSuccesful) {
-          this.dialogRef.close({ type: 'error' });
           return;
         }
         this.dialogRef.close({ type: 'success', value: res });
