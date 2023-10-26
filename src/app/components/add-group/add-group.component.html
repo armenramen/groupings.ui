@@ -12,56 +12,57 @@
     </mat-form-field>
 
     <mat-divider></mat-divider>
-
-    <h3>Details</h3>
-    <ng-container formArrayName="properties">
-      <div
-        class="group-form-prop"
-        *ngFor="let detailForm of detailsForms.controls; let i = index"
-      >
-        <ng-container [formGroupName]="i">
-          <mat-form-field>
-            <input
-              matInput
-              placeholder="Property name"
-              formControlName="propertyName"
-            />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select required formControlName="type">
-              <mat-option value="text"
-                ><mat-icon>abc</mat-icon> Text</mat-option
-              >
-              <mat-option value="number"
-                ><mat-icon>123</mat-icon> Number</mat-option
-              >
-              <mat-option value="date"
-                ><mat-icon>calendar_month</mat-icon> Date</mat-option
-              >
-              <mat-option value="booelan"
-                ><mat-icon>toggle_on</mat-icon> Boolean</mat-option
-              >
-            </mat-select>
-            <mat-label>Type</mat-label>
-          </mat-form-field>
-        </ng-container>
+    <ng-container *ngIf="hasSavedGroupName">
+      <h3>Details</h3>
+      <ng-container formArrayName="properties">
+        <div
+          class="group-form-prop"
+          *ngFor="let detailForm of detailsForms.controls; let i = index"
+        >
+          <ng-container [formGroupName]="i">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Property name"
+                formControlName="propertyName"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select required formControlName="type">
+                <mat-option value="text"
+                  ><mat-icon>abc</mat-icon> Text</mat-option
+                >
+                <mat-option value="number"
+                  ><mat-icon>123</mat-icon> Number</mat-option
+                >
+                <mat-option value="date"
+                  ><mat-icon>calendar_month</mat-icon> Date</mat-option
+                >
+                <mat-option value="booelan"
+                  ><mat-icon>toggle_on</mat-icon> Boolean</mat-option
+                >
+              </mat-select>
+              <mat-label>Type</mat-label>
+            </mat-form-field>
+          </ng-container>
+        </div>
+      </ng-container>
+      <div class="group-form-add-prop">
+        <button mat-stroked-button color="accent" (click)="addProperty()">
+          <mat-icon>add</mat-icon>Add Property
+        </button>
       </div>
+
     </ng-container>
-    <div class="group-form-add-prop">
-      <button mat-stroked-button color="accent" (click)="addProperty()">
-        <mat-icon>add</mat-icon>Add Property
-      </button>
-    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
   <button
     mat-raised-button
-    [mat-dialog-close]="groupForm.value"
     color="accent"
-    (click)="saveNewGroup()"
+    (click)="hasSavedGroupName ? updateGroup() : saveNewGroup()"
   >
-    Submit
+    {{ hasSavedGroupName ? 'Submit' : 'Next' }}
   </button>
 </mat-dialog-actions>

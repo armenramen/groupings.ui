@@ -12,6 +12,7 @@ import { GroupingsService } from 'src/app/services/groupings.service';
 export class AddGroupComponent implements OnInit {
   groupForm!: FormGroup;
   isSaving = false;
+  hasSavedGroupName = false;
 
   get detailsForms() {
     return this.groupForm.get('properties') as FormArray
@@ -25,12 +26,8 @@ export class AddGroupComponent implements OnInit {
   ngOnInit() {
     this.groupForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      properties: this.formBuilder.array([
-        this.formBuilder.group({
-          propertyName: ['', [Validators.required]],
-          type: ['text', Validators.required]
-        })
-      ])
+      taskGroupingId: [''],
+      properties: this.formBuilder.array([])
     })
 
   }
@@ -53,7 +50,28 @@ export class AddGroupComponent implements OnInit {
       .pipe(catchError(error => of({ error })))
       .subscribe((res: any) => {
         this.isSaving = false;
-        if (res.error) {
+        if (res.error || !res.isSuccesful) {
+          return;
+        }
+
+        this.hasSavedGroupName = true;
+        this.groupForm.get('taskGroupingId')?.setValue(res.taskGroupingId);
+        
+      })
+  }
+
+  updateGroup() {
+    this.isSaving = true;
+    const formValues = this.groupForm.value;
+
+    this.groupingService.saveGroup(
+      this.data.userId,
+      formValues
+    )
+      .pipe(catchError(error => of({ error })))
+      .subscribe((res: any) => {
+        this.isSaving = false;
+        if (res.error || !res.isSuccesful) {
           this.dialogRef.close({ type: 'error' });
           return;
         }

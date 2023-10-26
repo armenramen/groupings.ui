@@ -10,6 +10,7 @@ import { AddFileComponent } from './components/add-file/add-file.component';
 import { UserService } from './services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileService } from './services/file.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -99,7 +100,7 @@ export class AppComponent implements OnInit {
         this.isLoading = false;
         if (result.type === 'success') {
           this.openSuccessAlert('Group added successfully');
-          // Reload currently selected group
+          this.getGroupingList$.next(true);
         } else {
           this.openErrorAlert();
         }
@@ -152,8 +153,6 @@ export class AppComponent implements OnInit {
         if (result.type === 'success') {
           this.openSuccessAlert('Group updated successfully');
           this.getGroupingList$.next(true);
-          console.log(result.value)
-          // this.selectedGroup$.next(result.value)
           this.selectedGroup = result.value
         } else {
           this.openErrorAlert();
@@ -263,9 +262,15 @@ export class AppComponent implements OnInit {
       const obj: any = {};
       properties.forEach(d => {
         if (d.type === ProperyValueType.Boolean) {
-          obj[d.name] = d.value ? 'Yes' : 'No';
+          obj[d.name] = d.value === 'true' ? 'Yes' : 'No';
           return;
-        }
+        } 
+
+        if (d.type === ProperyValueType.Date) {
+          const pipe = new DatePipe('en-US');
+          obj[d.name] = pipe.transform(d.value, 'MM/dd/yyyy hh:mm a');
+          return;
+        } 
         obj[d.name] = d.value
       })
       return {

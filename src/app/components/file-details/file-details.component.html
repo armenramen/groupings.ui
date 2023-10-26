@@ -17,7 +17,7 @@
           "
           *ngIf="prop?.type === valueType.Boolean"
         >
-          {{ prop.value === 'true' ? 'Yes' : 'No' }}
+{{ prop.value === 'true' ? 'Yes' : 'No' }}
         </span>
         <span *ngIf="prop?.type === valueType.Date">
           {{ prop.value | date : 'MM/dd/yyyy hh:mm a' }}
@@ -63,7 +63,6 @@
             <input type="text" matInput formControlName="value" />
             <mat-label>{{ propForm.get('name')?.value }}</mat-label>
           </mat-form-field>
-          ischecked? {{ propForm.get('value')?.value === 'true' }}
           <mat-checkbox
             *ngIf="propForm.get('type')?.value === valueType.Boolean"
             formControlName="value"
