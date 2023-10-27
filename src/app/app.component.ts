@@ -1,16 +1,16 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, catchError, concatMap, filter, finalize, map, mergeMap, of, share, startWith, switchMap, take, tap } from 'rxjs';
-import { GroupingsService } from './services/groupings.service';
-import { GroupFile, ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Observable, Subject, catchError, filter, map, mergeMap, of, share, switchMap, tap } from 'rxjs';
+import { AddFileComponent } from './components/add-file/add-file.component';
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
-import { MatDrawer } from '@angular/material/sidenav';
-import { AddFileComponent } from './components/add-file/add-file.component';
-import { UserService } from './services/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileService } from './services/file.service';
-import { DatePipe } from '@angular/common';
+import { GroupingsService } from './services/groupings.service';
+import { UserService } from './services/user.service';
+import { GroupFile, ProperyValueType, TaskGroupFiles, TaskGrouping } from './utilities/models/response-models';
 
 @Component({
   selector: 'app-root',
@@ -193,7 +193,6 @@ export class AppComponent implements OnInit {
         if (res.error) {
           this.isEditMode = true;
           this.openErrorAlert();
-          console.log(res)
           return;
         }
 
@@ -300,15 +299,14 @@ export class AppComponent implements OnInit {
     const fileName = response.headers.get('Content-Disposition')
       .split(';')
       .find((e: string) => e.includes('filename='))
-      .replace('filename=', '').trim();
+      .replace(/["' ]|filename=/g, '')
+      .trim();
     const anchorElement = document.createElement('a');
     const file = new File([blob], fileName, { type: response.headers.get('content-type') });
     const url = window.URL.createObjectURL(file);
 
     anchorElement.href = url;
     anchorElement.download = fileName;
-    console.log(anchorElement.download);
-    console.log(fileName)
     anchorElement.click();
     window.URL.revokeObjectURL(url);
   }
