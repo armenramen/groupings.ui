@@ -39,6 +39,14 @@ export class AppComponent implements OnInit {
     return this.userService.userId !== '' && this.userService.userId !== null;
   }
 
+  get filteredFiles() {
+    if (!this.searchValue.length) {
+      return this.groupFiles;
+    }
+
+    return this.groupFiles.filter((f: any) => f.detail.name.toLowerCase().includes(this.searchValue.toLowerCase()))
+  }
+
 
   constructor(private groupService: GroupingsService,
     private userService: UserService,
@@ -235,9 +243,6 @@ export class AppComponent implements OnInit {
         this.openSuccessAlert('File has been deleted');
         this.selectedGroup$.next(this.selectedGroup);
       });
-  }
-
-  onSearchChange(value: string) {
   }
 
   generateReport() {

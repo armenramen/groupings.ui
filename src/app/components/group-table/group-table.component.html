@@ -1,4 +1,4 @@
-<table *ngIf="dataSource?.length" mat-table [dataSource]="dataSource">
+<table *ngIf="dataSource?.length" mat-table [dataSource]="filteredFiles">
   <!-- Details Columns -->
   <ng-container
     *ngFor="let column of columns"

@@ -75,30 +75,6 @@
 
     <mat-drawer-container>
       <mat-drawer-content>
-        <!-- SEARCH FIELD -->
-        <!-- <mat-form-field
-          class="search"
-          appearance="outline"
-          *ngIf="groupFiles.length"
-        >
-          <input
-            matInput
-            type="text"
-            [ngModel]="searchValue"
-            (ngModelChange)="onSearchChange(searchValue)"
-            placeholder="Search"
-          />
-          <button
-            *ngIf="searchValue"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="searchValue = ''"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field> -->
-        <!-- END of SEARCH FIELD -->
         <ng-container *ngIf="!selectedGroup">
           <div class="empty-state">
             <p>
@@ -111,10 +87,11 @@
           <mat-spinner class="spinner" color="accent"> </mat-spinner>
         </ng-container>
         <!-- ICON VIEW -->
+        <ng-container *ngTemplateOutlet="search"></ng-container>
         <ng-container *ngIf="dataSource$ | async as data">
           <app-group-icon-view
             *ngIf="viewMode === 'icon' && !isLoading"
-            [dataSource]="data.files"
+            [dataSource]="filteredFiles"
             [selectedGroup]="selectedGroup"
             (itemSelected)="onFileSelected($event, drawer)"
           ></app-group-icon-view>
@@ -126,6 +103,7 @@
             *ngIf="viewMode === 'table' && !isLoading"
             [dataSource]="data"
             [selectedGroup]="selectedGroup"
+            [searchValue]="searchValue"
             (selectionChanged)="onSelectRow($event, drawer)"
           ></app-group-table>
         </ng-container>
@@ -167,4 +145,32 @@
 </ng-template>
 <ng-template #login>
   <app-user-login></app-user-login>
+</ng-template>
+
+<ng-template #search>
+  <!-- SEARCH FIELD -->
+  <mat-form-field
+  class="search"
+  appearance="outline"
+  *ngIf="groupFiles.length && !isLoading"
+>
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="searchValue"
+    placeholder="Search"
+    />
+    <button
+    *ngIf="searchValue"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="searchValue = ''"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  </mat-form-field>
+  <ng-container *ngIf="searchValue.length">
+    Showing results for <strong>"{{ searchValue }}"</strong>
+  </ng-container>
 </ng-template>

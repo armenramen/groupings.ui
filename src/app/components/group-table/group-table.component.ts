@@ -9,6 +9,7 @@ import { ProperyValueType, TaskGroupFiles, TaskGrouping } from 'src/app/utilitie
 })
 export class GroupTableComponent implements OnInit {
   @Input() dataSource: any[] = [];
+  @Input() searchValue!: string;
   @Input() selectedGroup!: TaskGrouping | null;
   @Output() selectionChanged = new EventEmitter();
 
@@ -20,6 +21,15 @@ export class GroupTableComponent implements OnInit {
       // 'download'
     ];
   }
+
+  get filteredFiles() {
+    if (!this.searchValue.length) {
+      return this.dataSource;
+    }
+
+    return this.dataSource.filter((f: any) => f.fileName.toLowerCase().includes(this.searchValue.toLowerCase()))
+  }
+
 
   get columns(): any[] {
     const cols = [
